@@ -22,16 +22,18 @@
 .navbar {
   background-color: #34324E;
   padding: 1rem 0;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  right: 0;
+  width: 100vw;
   z-index: 100;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  margin: 0;
 }
 
 .nav-container {
-  margin: 0 auto;
   padding: 0 2rem;
   display: flex;
   justify-content: space-between;

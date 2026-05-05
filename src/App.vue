@@ -9,8 +9,14 @@ const showNav = computed(() => route.meta.showNav ?? true)
 
 <template>
   <Navigation v-if="showNav" />
-  <router-view />
+  <main :style="{ paddingTop: showNav ? '60px' : '0' }">
+    <router-view />
+  </main>
 </template>
 
 <style scoped>
+main {
+  width: 100%;
+  box-sizing: border-box;
+}
 </style>

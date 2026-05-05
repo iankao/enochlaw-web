@@ -35,7 +35,16 @@ body {
   padding: 0;
 }
 
-@media (prefers-color-scheme: dark) {
+html {
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
   :root {
     --text: #9ca3af;
     --text-h: #f3f4f6;
