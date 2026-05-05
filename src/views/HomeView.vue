@@ -38,22 +38,24 @@
   </nav>
 
   <section class="hero-section">
-    <div class="hero-content-box">
-      <p class="hero-label">ENOCH ATTORNEYS-AT-LAW</p>
-      <h1 class="hero-title">以諾法律，一諾千金</h1>
-      <div class="hero-description-wrapper">
-        <p class="hero-description">
-          從法律預防到糾紛解決，我們以卓越的法律專業與誠信，為每位客戶爭取最公平的正義與最高的權益。
-        </p>
+    <div class="hero-container">
+      <div class="hero-content-box">
+        <p class="hero-label">ENOCH ATTORNEYS-AT-LAW</p>
+        <h1 class="hero-title">以諾法律，一諾千金</h1>
+        <div class="hero-description-wrapper">
+          <p class="hero-description">
+            從法律預防到糾紛解決，我們以卓越的法律專業與誠信，為每位客戶爭取最公平的正義與最高的權益。
+          </p>
+        </div>
+        <div class="hero-buttons">
+          <button class="hero-btn primary">立即免費諮詢 <span class="btn-arrow">›</span></button>
+          <button class="hero-btn secondary">了解更多服務 <span class="btn-arrow">›</span></button>
+        </div>
       </div>
-      <div class="hero-buttons">
-        <button class="hero-btn primary">立即免費諮詢 <span class="btn-arrow">›</span></button>
-        <button class="hero-btn secondary">了解更多服務 <span class="btn-arrow">›</span></button>
+      <div class="hero-image-container">
+        <img src="/images/tonton-on-phone.png" alt="Tonton on Phone" class="hero-image" />
+        <div class="image-glow"></div>
       </div>
-    </div>
-    <div class="hero-image-container">
-      <img src="/images/tonton-on-phone.png" alt="Tonton on Phone" class="hero-image" />
-      <div class="image-glow"></div>
     </div>
   </section>
 
@@ -77,8 +79,7 @@
   position: sticky;
   top: 0;
   z-index: 50;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   font-family: 'Noto Sans TC', sans-serif;
 }
 
@@ -132,8 +133,7 @@
 .navbar {
   background-color: #fff;
   padding: 1rem 0;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   font-family: 'Noto Sans TC', sans-serif;
   border-bottom: 1px solid #f0f0f0;
 }
@@ -203,21 +203,30 @@
     linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 50px 50px;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 4rem 2rem;
-  gap: 4rem;
   min-height: 600px;
   overflow: hidden;
 }
 
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
 .hero-content-box {
   max-width: 550px;
-  flex-shrink: 0;
+  flex: 1;
   z-index: 2;
+  text-align: left; /* Ensure left alignment */
 }
 
 .hero-label {
@@ -347,8 +356,11 @@
   }
 
   .hero-section {
-    flex-direction: column;
     padding: 4rem 1.5rem;
+  }
+
+  .hero-container {
+    flex-direction: column;
     gap: 3rem;
     align-items: flex-start;
   }
