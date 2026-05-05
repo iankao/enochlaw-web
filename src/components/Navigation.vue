@@ -3,7 +3,7 @@
     <div class="nav-container">
       <div class="nav-brand">
         <router-link to="/">
-          <img src="/images/enoch-logo-artist.png" alt="Enoch Logo" class="logo-img" />
+          <img src="/images/enoch-logo-white.png" alt="Enoch Logo" class="logo-img" />
         </router-link>
       </div>
       <ul class="nav-menu">
@@ -38,6 +38,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .nav-brand a {

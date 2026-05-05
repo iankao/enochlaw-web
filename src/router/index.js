@@ -6,7 +6,6 @@ const routes = [
     path: '/',
     name: 'Home',
     component: HomeView,
-    meta: { showNav: true }
   }
 ]
 
