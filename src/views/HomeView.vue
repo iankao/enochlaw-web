@@ -79,6 +79,93 @@
     </div>
   </section>
 
+  <section class="services-section">
+    <div class="services-header">
+      <p class="services-label">OUR SERVICES</p>
+      <h2 class="services-title">服務項目</h2>
+      <div class="title-underline"></div>
+    </div>
+    <div class="services-grid">
+      <div class="service-item">
+        <div class="service-icon-box">
+          <img src="/images/home-service-item-01.svg" alt="家庭案件" class="service-icon" />
+        </div>
+        <h3 class="service-name">家庭案件</h3>
+        <p class="service-desc">包括離婚、未成年子女親權、剩餘財產分配、外遇、扶養費等</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon-box">
+          <img src="/images/home-service-item-02.svg" alt="憲法訴訟" class="service-icon" />
+        </div>
+        <h3 class="service-name">憲法訴訟</h3>
+        <p class="service-desc">包括離婚、未成年子女親權、剩餘財產分配、外遇、扶養費等</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon-box">
+          <img src="/images/home-service-item-03.svg" alt="借款案件" class="service-icon" />
+        </div>
+        <h3 class="service-name">借款案件</h3>
+        <p class="service-desc">包括離婚、未成年子女親權、剩餘財產分配、外遇、扶養費等</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon-box">
+          <img src="/images/home-service-item-04.svg" alt="勞動案件" class="service-icon" />
+        </div>
+        <h3 class="service-name">勞動案件</h3>
+        <p class="service-desc">包括離婚、未成年子女親權、剩餘財產分配、外遇、扶養費等</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon-box">
+          <img src="/images/home-service-item-05.svg" alt="車禍案件" class="service-icon" />
+        </div>
+        <h3 class="service-name">車禍案件</h3>
+        <p class="service-desc">包括離婚、未成年子女親權、剩餘財產分配、外遇、扶養費等</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon-box">
+          <img src="/images/home-service-item-06.svg" alt="繼承爭議" class="service-icon" />
+        </div>
+        <h3 class="service-name">繼承爭議</h3>
+        <p class="service-desc">包括離婚、未成年子女親權、剩餘財產分配、外遇、扶養費等</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon-box">
+          <img src="/images/home-service-item-07.svg" alt="刑事案件" class="service-icon" />
+        </div>
+        <h3 class="service-name">刑事案件</h3>
+        <p class="service-desc">包括離婚、未成年子女親權、剩餘財產分配、外遇、扶養費等</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon-box">
+          <img src="/images/home-service-item-08.svg" alt="商務案件" class="service-icon" />
+        </div>
+        <h3 class="service-name">商務案件</h3>
+        <p class="service-desc">包括離婚、未成年子女親權、剩餘財產分配、外遇、扶養費等</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon-box">
+          <img src="/images/home-service-item-09.svg" alt="企業法務顧問" class="service-icon" />
+        </div>
+        <h3 class="service-name">企業法務顧問</h3>
+        <p class="service-desc">包括離婚、未成年子女親權、剩餘財產分配、外遇、扶養費等</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon-box">
+          <img src="/images/home-service-item-10.svg" alt="不動產、都更案件" class="service-icon" />
+        </div>
+        <h3 class="service-name">不動產、都更案件</h3>
+        <p class="service-desc">包括離婚、未成年子女親權、剩餘財產分配、外遇、扶養費等</p>
+      </div>
+      <div class="service-item">
+        <div class="service-icon-box">
+          <img src="/images/home-service-item-11.svg" alt="其他案件" class="service-icon" />
+        </div>
+        <h3 class="service-name">其他案件</h3>
+        <p class="service-desc">包括離婚、未成年子女親權、剩餘財產分配、外遇、扶養費等</p>
+      </div>
+    </div>
+  </section>
+
 </template>
 
 <script setup>
@@ -523,6 +610,118 @@
   }
   .about-section {
     padding: 4rem 1.5rem;
+  }
+}
+
+.services-section {
+  padding: 6rem 2rem;
+  background-color: #fff;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+.services-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.services-label {
+  color: #CE7A49;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  margin-bottom: 0.5rem;
+}
+
+.services-title {
+  color: #34324E;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.service-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.service-icon-box {
+  width: 60px;
+  height: 60px;
+  background-color: #FDF5F0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.service-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.service-item:hover .service-icon-box {
+  background-color: #CE7A49;
+  color: #fff;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(206, 122, 73, 0.2);
+}
+
+.service-item:hover .service-icon {
+  filter: brightness(0) invert(1);
+}
+
+.service-name {
+  color: #34324E;
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem 0;
+}
+
+.service-desc {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 240px;
+}
+
+/* Responsive for Services Section */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem 1rem;
+  }
+  .services-section {
+    padding: 4rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
 }
 </style>
