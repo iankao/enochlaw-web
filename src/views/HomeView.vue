@@ -305,6 +305,7 @@
 
 .hero-image-container {
   position: relative;
+  padding-right: 7vw;
   flex-shrink: 0;
   z-index: 1;
 }
@@ -356,13 +357,14 @@
   }
 
   .hero-section {
-    padding: 4rem 1.5rem;
+    padding: 3rem 1rem;
   }
 
   .hero-container {
     flex-direction: column;
     gap: 3rem;
     align-items: flex-start;
+    padding: 0 2rem;
   }
 
   .hero-content-box {
@@ -376,13 +378,17 @@
   .hero-buttons {
     flex-direction: row;
     width: 100%;
+    gap: 1rem;
   }
 
   .hero-btn {
     flex: 1;
     justify-content: center;
-    padding: 0.8rem 1rem;
-    font-size: 0.9rem;
+    padding: 0.7rem 0.8rem;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .hero-image-container {
@@ -399,22 +405,23 @@
   .mobile-floating-btn {
     display: block;
     position: fixed;
-    right: 0;
+    right: 12px;
     top: 60%;
     transform: translateY(-50%);
     background-color: #fff;
-    padding: 0.75rem 0.4rem;
-    border-radius: 12px 0 0 12px;
+    padding: 0.6rem 0.4rem;
+    border-radius: 12px;
     box-shadow: -4px 0 15px rgba(0,0,0,0.15);
     z-index: 100;
     cursor: pointer;
+    width: 50px;
   }
 
   .floating-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.3rem;
   }
 
   .floating-icon {
@@ -434,9 +441,9 @@
     writing-mode: vertical-rl;
     color: #CE7A49;
     font-weight: 600;
-    letter-spacing: 0.3em;
-    font-size: 0.85rem;
-    margin-top: 0.25rem;
+    letter-spacing: 0.2em;
+    font-size: 0.75rem;
+    margin-top: 0.15rem;
   }
 }
 </style>
