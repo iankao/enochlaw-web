@@ -59,6 +59,26 @@
     </div>
   </section>
 
+  <section class="about-section">
+    <div class="about-header">
+      <p class="about-label">ABOUT ENOCH</p>
+      <h2 class="about-title">關於以諾</h2>
+      <div class="title-underline"></div>
+    </div>
+    <div class="about-content">
+      <div class="about-image-box">
+        <img src="/images/about-handshake.png" alt="Handshake" class="about-image" />
+      </div>
+      <div class="about-text-box">
+        <div class="about-text-inner">
+          <p>以諾法律事務所所長童行律師，自台大法研畢業後致力於辦理跨國商務案件。協助跨國企業創設全台cp值最高的線上語言教學平台。另成功為客戶爭取到最困難的大法官憲法訴訟。</p>
+          <p>而自疫情後，有感於現今台灣社會的動盪及亂象。我們集結各領域專業律師，致力於為民眾解決繁瑣的法律難題。</p>
+          <p class="honor-text">*本所承蒙知名藝術家何懷碩教授題字，至感榮幸！</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </template>
 
 <script setup>
@@ -394,5 +414,115 @@
   }
 
 
+}
+
+.about-section {
+  padding: 6rem 2rem;
+  background-color: #fff;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+.about-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.about-label {
+  color: #CE7A49;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  margin-bottom: 0.5rem;
+}
+
+.about-title {
+  color: #34324E;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.title-underline {
+  width: 50px;
+  height: 2px;
+  background-color: #CE7A49;
+  margin: 1.5rem auto 0;
+}
+
+.about-content {
+  display: flex;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: stretch;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.about-image-box {
+  flex: 1.2;
+  overflow: hidden;
+}
+
+.about-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.about-content:hover .about-image {
+  transform: scale(1.05);
+}
+
+.about-text-box {
+  flex: 1;
+  background-color: #34324E;
+  color: #fff;
+  padding: 4rem;
+  display: flex;
+  align-items: center;
+}
+
+.about-text-inner p {
+  font-size: 1.05rem;
+  line-height: 2;
+  margin-bottom: 2rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-align: justify;
+}
+
+.about-text-inner .honor-text {
+  font-size: 0.9rem;
+  margin-top: 3rem;
+  margin-bottom: 0;
+  color: rgba(255, 255, 255, 0.6);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1.5rem;
+}
+
+/* Responsive for About Section */
+@media (max-width: 1024px) {
+  .about-text-box {
+    padding: 3rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .about-content {
+    flex-direction: column;
+  }
+  .about-image-box {
+    height: 350px;
+  }
+  .about-image-box, .about-text-box {
+    flex: none;
+    width: 100%;
+  }
+  .about-section {
+    padding: 4rem 1.5rem;
+  }
 }
 </style>
