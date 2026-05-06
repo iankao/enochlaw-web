@@ -193,7 +193,58 @@
   </section>
 
   <section class="banner-image-section">
-    <img src="/images/hands-together.png" alt="Hands Together" class="banner-image" />
+    <div class="banner-container">
+      <img src="/images/hands-together.png" alt="Hands Together" class="banner-image" />
+      <div class="partners-overlay">
+        <div class="partners-left">
+          <p class="partners-label">AFFILIATES & PARTNERS</p>
+          <h2 class="partners-title">關係企業與合作夥伴</h2>
+          <div class="title-underline"></div>
+        </div>
+        <div class="partners-right">
+          <div class="partner-item">
+            <div class="partner-logo-box"><img src="/images/partner-01.png" alt="外語吧" /></div>
+            <div class="partner-info">
+              <h3>外語吧</h3>
+              <p>外語吧提供英日韓語會話與多元課程，結合專業師資，打造高效有趣的線上體驗。</p>
+            </div>
+          </div>
+          <div class="partner-item">
+            <div class="partner-logo-box"><img src="/images/partner-02.png" alt="解題吧" /></div>
+            <div class="partner-info">
+              <h3>解題吧</h3>
+              <p>解題吧提供免費題庫與測驗，涵蓋多種目及各檢定各級，並有真人講師解析。</p>
+            </div>
+          </div>
+          <div class="partner-item">
+            <div class="partner-logo-box"><img src="/images/partner-03.png" alt="童童哥" /></div>
+            <div class="partner-info">
+              <h3>童童哥</h3>
+              <p>法律不該有門檻｜提供真正免費法律協助弱勢免費諮詢＋書狀＋出庭支援。</p>
+            </div>
+          </div>
+          <div class="partner-item">
+            <div class="partner-logo-box"><img src="/images/partner-04.png" alt="玖月智權事務所" /></div>
+            <div class="partner-info">
+              <h3>玖月智權事務所</h3>
+              <p>提供專利申請與智慧財產權服務，協助客戶保護創新成果並提升競爭力。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-logos-bar">
+        <div class="footer-logos-content">
+          <div class="f-logo-item"><span>Allpower</span></div>
+          <div class="f-logo-item"><span>PayUNI</span></div>
+          <div class="f-logo-item"><span>康華會計師事務所</span></div>
+          <div class="f-logo-item"><span>立達欣業</span></div>
+          <div class="f-logo-item"><span>立達徵信</span></div>
+          <div class="f-logo-item"><span>銀角零卡</span></div>
+          <div class="f-logo-item"><span>立傳媒</span></div>
+          <div class="f-logo-item"><span>台灣正念工坊</span></div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -843,9 +894,189 @@
   overflow: hidden;
 }
 
+.banner-container {
+  position: relative;
+  width: 100%;
+}
+
 .banner-image {
   width: 100%;
   height: auto;
   display: block;
+}
+
+.partners-overlay {
+  position: absolute;
+  top: 30%;
+  right: 0%;
+  transform: translateY(-50%);
+  width: 90%;
+  max-width: 1100px;
+  background: white;
+  display: flex;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.partners-left {
+  flex: 1;
+  background: #fff;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-right: 1px solid #eee;
+}
+
+.partners-label {
+  color: #CE7A49;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.partners-title {
+  color: #34324E;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.85rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
+}
+
+.partners-right {
+  flex: 2;
+  background: #34324E;
+  padding: 3rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem 2rem;
+}
+
+.partner-item {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.partner-logo-box {
+  width: 65px;
+  height: 65px;
+  background: white;
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.partner-logo-box img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.partner-info {
+  text-align: left;
+}
+
+.partner-info h3 {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0 0 0.6rem 0;
+  font-family: 'Playfair Display', serif;
+}
+
+.partner-info p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.8rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.footer-logos-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(52, 50, 78, 0.9);
+  padding: 1.5rem 0;
+  z-index: 10;
+}
+
+.footer-logos-content {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2rem;
+  flex-wrap: nowrap;
+  gap: 3rem;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.footer-logos-content::-webkit-scrollbar {
+  display: none;
+}
+
+.f-logo-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.85rem;
+  min-width: 120px;
+}
+
+.f-logo-item img {
+  height: 24px;
+  filter: grayscale(1) brightness(3);
+  opacity: 0.4;
+  transition: all 0.3s ease;
+}
+
+.f-logo-item:hover img {
+  opacity: 0.8;
+  filter: grayscale(0) brightness(1);
+}
+
+@media (max-width: 1024px) {
+  .partners-overlay {
+    flex-direction: column;
+    width: 95%;
+  }
+  .partners-left {
+    padding: 2.5rem;
+    border-right: none;
+    border-bottom: 1px solid #eee;
+  }
+  .partners-right {
+    padding: 2.5rem;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .partners-right {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+  }
+  .partners-title {
+    font-size: 1.5rem;
+  }
+  .footer-logos-content {
+    justify-content: center;
+  }
 }
 </style>
