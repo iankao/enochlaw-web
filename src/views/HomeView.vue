@@ -357,7 +357,7 @@
   }
 
   .hero-section {
-    padding: 3rem 1rem;
+    padding: 2rem 0rem;
   }
 
   .hero-container {
