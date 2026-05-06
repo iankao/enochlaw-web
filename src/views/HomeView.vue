@@ -67,12 +67,12 @@
     </div>
     <div class="about-content">
       <div class="about-image-box">
-        <img src="/images/about-handshake.png" alt="Handshake" class="about-image" />
+        <img src="/images/handshake.png" alt="Handshake" class="about-image" />
       </div>
       <div class="about-text-box">
         <div class="about-text-inner">
-          <p>以諾法律事務所所長童行律師，自台大法研畢業後致力於辦理跨國商務案件。協助跨國企業創設全台cp值最高的線上語言教學平台。另成功為客戶爭取到最困難的大法官憲法訴訟。</p>
-          <p>而自疫情後，有感於現今台灣社會的動盪及亂象。我們集結各領域專業律師，致力於為民眾解決繁瑣的法律難題。</p>
+          <p>以諾法律事務所所長童行律師，自台大法研畢業後致力於辦理跨國商務案件，協助跨國企業創設全台cp值最高的線上語言教學平台，另成功為客戶爭取到最困難的大法官憲法訴訟。</p>
+          <p>而自疫情後，有感於現今台灣社會的動盪及亂象，我們集結各領域專業律師，致力於為民眾解決繁瑣的法律難題。</p>
           <p class="honor-text">*本所承蒙知名藝術家何懷碩教授題字，至感榮幸！</p>
         </div>
       </div>
@@ -517,8 +517,8 @@
   .about-image-box {
     height: 350px;
   }
-  .about-image-box, .about-text-box {
-    flex: none;
+  .about-image-box {
+    flex: 1;
     width: 100%;
   }
   .about-section {
