@@ -361,7 +361,7 @@
 
 .hero-label {
   color: #CE7A49;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 600;
   margin: 0 0 1rem 0;
   letter-spacing: 0.15em;
@@ -546,7 +546,7 @@
 
 .about-label {
   color: #CE7A49;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: 0.25em;
   margin-bottom: 0.5rem;
@@ -657,7 +657,7 @@
 
 .services-label {
   color: #CE7A49;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: 0.25em;
   margin-bottom: 0.5rem;
@@ -746,7 +746,7 @@
 
 .process-label {
   color: #CE7A49;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
   font-weight: 600;
   letter-spacing: 0.25em;
   margin-bottom: 0.5rem;
