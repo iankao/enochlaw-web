@@ -166,13 +166,38 @@
     </div>
   </section>
 
+  <section class="process-section">
+    <div class="process-header">
+      <p class="process-label">SERVICE PROCESS</p>
+      <h2 class="process-title">服務流程</h2>
+      <div class="title-underline"></div>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-circle">01</div>
+        <p class="step-name">線上填表</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">02</div>
+        <p class="step-name">電話預約</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">03</div>
+        <p class="step-name">下載ZOOM</p>
+      </div>
+      <div class="process-step">
+        <div class="step-circle">04</div>
+        <p class="step-name">線上諮詢</p>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script setup>
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Playfair+Display:wght@500;700&display=swap');
 
 .top-bar {
   background-color: #34324E;
@@ -340,10 +365,11 @@
 
 .hero-title {
   color: #fff;
-  font-size: 3rem;
+  font-size: 2.75rem;
   font-weight: 700;
   margin: 0 0 2rem 0;
   line-height: 1.2;
+  font-family: 'Playfair Display', serif;
 }
 
 .hero-description-wrapper {
@@ -520,6 +546,7 @@
   font-weight: 600;
   letter-spacing: 0.25em;
   margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
 }
 
 .about-title {
@@ -630,6 +657,7 @@
   font-weight: 600;
   letter-spacing: 0.25em;
   margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
 }
 
 .services-title {
@@ -701,12 +729,86 @@
   text-align: left;
 }
 
-/* Responsive for Services Section */
+.process-section {
+  padding: 6rem 2rem;
+  background-color: #FDF5F0;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+.process-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.process-label {
+  color: #CE7A49;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.process-title {
+  color: #34324E;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.05em;
+  font-family: 'Playfair Display', serif;
+}
+
+.process-steps {
+  display: flex;
+  justify-content: center;
+  gap: 6rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.process-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-circle {
+  width: 80px;
+  height: 80px;
+  background-color: #CE7A49;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: 600;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 1.5rem;
+  border: 4px solid #fff;
+  box-shadow: 0 12px 30px rgba(78, 52, 46, 0.4), 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.process-step:hover .step-circle {
+  transform: scale(1.1) rotate(5deg);
+  background-color: #b86a3a;
+  box-shadow: 0 15px 40px rgba(78, 52, 46, 0.5);
+}
+
+.step-name {
+  color: #34324E;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
 @media (max-width: 1024px) {
   .services-grid {
     grid-template-columns: repeat(3, 1fr);
     gap: 3rem 1.5rem;
   }
+  .process-steps { gap: 3rem; }
 }
 
 @media (max-width: 768px) {
@@ -716,6 +818,11 @@
   }
   .services-section {
     padding: 4rem 1rem;
+  }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem 1rem;
   }
 }
 
