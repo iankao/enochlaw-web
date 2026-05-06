@@ -614,7 +614,7 @@
 }
 
 .services-section {
-  padding: 6rem 2rem;
+  padding: 1rem 2rem;
   background-color: #fff;
   font-family: 'Noto Sans TC', sans-serif;
 }
@@ -698,6 +698,7 @@
   line-height: 1.6;
   margin: 0;
   max-width: 240px;
+  text-align: left;
 }
 
 /* Responsive for Services Section */
