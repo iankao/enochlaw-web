@@ -191,6 +191,10 @@
       </div>
     </div>
   </section>
+
+  <section class="banner-image-section">
+    <img src="/images/hands-together.png" alt="Hands Together" class="banner-image" />
+  </section>
 </template>
 
 <script setup>
@@ -831,5 +835,16 @@
     grid-template-columns: 1fr;
     gap: 2rem;
   }
+}
+
+.banner-image-section {
+  width: 100%;
+  overflow: hidden;
+}
+
+.banner-image {
+  width: 100%;
+  height: auto;
+  display: block;
 }
 </style>
