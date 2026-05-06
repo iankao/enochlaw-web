@@ -59,12 +59,6 @@
     </div>
   </section>
 
-  <div class="mobile-floating-btn">
-    <div class="floating-content">
-      <div class="floating-icon">⚖️</div>
-      <span class="floating-text">免費諮詢</span>
-    </div>
-  </div>
 </template>
 
 <script setup>
@@ -330,9 +324,6 @@
   pointer-events: none;
 }
 
-.mobile-floating-btn {
-  display: none;
-}
 
 /* Responsive Styles */
 @media (max-width: 1024px) {
@@ -402,48 +393,6 @@
     max-width: 400px;
   }
 
-  .mobile-floating-btn {
-    display: block;
-    position: fixed;
-    right: 12px;
-    top: 60%;
-    transform: translateY(-50%);
-    background-color: #fff;
-    padding: 0.6rem 0.4rem;
-    border-radius: 12px;
-    box-shadow: -4px 0 15px rgba(0,0,0,0.15);
-    z-index: 100;
-    cursor: pointer;
-    width: 50px;
-  }
 
-  .floating-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.3rem;
-  }
-
-  .floating-icon {
-    background-color: #CE7A49;
-    color: #fff;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8rem;
-    box-shadow: 0 2px 5px rgba(206, 122, 73, 0.3);
-  }
-
-  .floating-text {
-    writing-mode: vertical-rl;
-    color: #CE7A49;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    font-size: 0.75rem;
-    margin-top: 0.15rem;
-  }
 }
 </style>
