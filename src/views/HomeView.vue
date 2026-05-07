@@ -233,15 +233,60 @@
         </div>
       </div>
       <div class="footer-logos-bar">
-        <div class="footer-logos-content">
-          <div class="f-logo-item"><span>Allpower</span></div>
-          <div class="f-logo-item"><span>PayUNI</span></div>
-          <div class="f-logo-item"><span>康華會計師事務所</span></div>
-          <div class="f-logo-item"><span>立達欣業</span></div>
-          <div class="f-logo-item"><span>立達徵信</span></div>
-          <div class="f-logo-item"><span>銀角零卡</span></div>
-          <div class="f-logo-item"><span>立傳媒</span></div>
-          <div class="f-logo-item"><span>台灣正念工坊</span></div>
+        <div class="marquee-container">
+          <div class="marquee-content">
+            <!-- First set of logos -->
+            <div v-for="(partner, index) in partners" :key="'p1-' + index" class="f-logo-item">
+              <div class="f-logo-img-box">
+                <img :src="partner.img" :alt="partner.name" />
+              </div>
+              <span class="f-logo-name">{{ partner.name }}</span>
+            </div>
+            <!-- Duplicated set for seamless loop -->
+            <div v-for="(partner, index) in partners" :key="'p2-' + index" class="f-logo-item">
+              <div class="f-logo-img-box">
+                <img :src="partner.img" :alt="partner.name" />
+              </div>
+              <span class="f-logo-name">{{ partner.name }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="contact-header">
+      <p class="contact-label">CONTTACTS US</p>
+      <h2 class="contact-title">聯絡我們</h2>
+      <div class="title-underline"></div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <div class="contact-icon-box">
+          <img src="/images/phone-icon.svg" alt="Phone" />
+        </div>
+        <div class="contact-info">
+          <span class="info-label">服務電話</span>
+          <span class="info-value">02-7755-7325</span>
+        </div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-icon-box">
+          <img src="/images/line-icon.svg" alt="Line" />
+        </div>
+        <div class="contact-info">
+          <span class="info-label">LINE官方帳號</span>
+          <span class="info-value">@enoch</span>
+        </div>
+      </div>
+      <div class="contact-card email-card">
+        <div class="contact-icon-box">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="email-icon"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        </div>
+        <div class="contact-info">
+          <span class="info-label">Email</span>
+          <span class="info-value">service@enoch.tw</span>
         </div>
       </div>
     </div>
@@ -249,6 +294,21 @@
 </template>
 
 <script setup>
+const partners = [
+  { name: 'Allpower', img: '/images/running-01.png' },
+  { name: 'PayUNI', img: '/images/running-02.png' },
+  { name: '康華會計師事務所', img: '/images/running-03.png' },
+  { name: '立達欣業', img: '/images/running-04.png' },
+  { name: '立達徵信', img: '/images/running-05.png' },
+  { name: '銀角零卡', img: '/images/running-06.png' },
+  { name: '立傳媒', img: '/images/running-07.png' },
+  { name: '台灣正念工坊', img: '/images/running-08.png' },
+  { name: '外語吧', img: '/images/running-09.png' },
+  { name: '解題吧', img: '/images/running-10.png' },
+  { name: '童童哥', img: '/images/running-11.png' },
+  { name: '玖月智權事務所', img: '/images/running-12.png' },
+  { name: '以諾法律', img: '/images/running-13.png' },
+];
 </script>
 
 <style scoped>
@@ -1005,56 +1065,81 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  background: rgba(52, 50, 78, 0.9);
-  padding: 1.5rem 0;
+  background: rgba(52, 50, 78, 0.95);
+  padding: 2rem 0;
   z-index: 10;
+  overflow: hidden;
 }
 
-.footer-logos-content {
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
+.marquee-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0 2rem;
-  flex-wrap: nowrap;
-  gap: 3rem;
-  overflow-x: auto;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  width: 100%;
 }
 
-.footer-logos-content::-webkit-scrollbar {
-  display: none;
+.marquee-content {
+  display: flex;
+  gap: 4rem;
+  animation: marquee 40s linear infinite;
+  white-space: nowrap;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .f-logo-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.75rem;
-  color: rgba(255, 255, 255, 0.5);
-  font-size: 0.85rem;
-  min-width: 120px;
+  justify-content: center;
+  min-width: 180px;
+  gap: 1.25rem;
 }
 
-.f-logo-item img {
-  height: 24px;
-  filter: grayscale(1) brightness(3);
-  opacity: 0.4;
+.f-logo-img-box {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.f-logo-img-box img {
+  max-height: 100%;
+  width: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.8;
   transition: all 0.3s ease;
 }
 
-.f-logo-item:hover img {
-  opacity: 0.8;
-  filter: grayscale(0) brightness(1);
+.f-logo-item:hover .f-logo-img-box img {
+  opacity: 1;
+  transform: scale(1.05);
+  filter: none;
+}
+
+.f-logo-name {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
 }
 
 @media (max-width: 1024px) {
+  .banner-container {
+    min-height: 800px;
+  }
+  .banner-image {
+    height: 100%;
+    object-fit: cover;
+  }
   .partners-overlay {
     flex-direction: column;
-    width: 95%;
+    width: 90%;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, -50%);
   }
   .partners-left {
     padding: 2.5rem;
@@ -1068,6 +1153,9 @@
 }
 
 @media (max-width: 768px) {
+  .banner-container {
+    min-height: 1000px;
+  }
   .partners-right {
     grid-template-columns: 1fr;
     padding: 2rem;
@@ -1076,7 +1164,149 @@
     font-size: 1.5rem;
   }
   .footer-logos-content {
-    justify-content: center;
+    justify-content: flex-start;
+    padding: 0 1rem;
+  }
+}
+
+.contact-section {
+  padding: 6rem 2rem;
+  background-color: #F9F9F9;
+  text-align: center;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+.contact-header {
+  margin-bottom: 4rem;
+}
+
+.contact-label {
+  color: #CE7A49;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  margin-bottom: 0.5rem;
+  font-family: 'Playfair Display', serif;
+}
+
+.contact-title {
+  color: #34324E;
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.contact-grid {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.contact-card {
+  background-color: #34324E;
+  color: #fff;
+  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  min-width: 280px;
+  flex: 1;
+  transition: transform 0.3s ease;
+  box-sizing: border-box;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+}
+
+.contact-icon-box {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-icon-box img,
+.email-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.email-icon {
+  stroke: white;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.info-label {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0.25rem;
+}
+
+.info-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 1024px) {
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    padding: 0 1rem;
+  }
+  .contact-card {
+    padding: 1rem 1.25rem;
+    min-width: auto;
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
+  }
+  .contact-info {
+    text-align: center;
+  }
+  .email-card {
+    grid-column: span 2;
+    padding: 1rem;
+  }
+  .info-label {
+    font-size: 1.15rem;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .info-value {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-grid {
+    gap: 0.75rem;
+  }
+  .contact-card {
+    padding: 1.25rem 0.75rem;
+  }
+  .info-label {
+    font-size: 1.05rem;
+  }
+  .info-value {
+    font-size: 0.9rem;
   }
 }
 </style>
