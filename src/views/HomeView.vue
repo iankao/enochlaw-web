@@ -290,6 +290,22 @@
         </div>
       </div>
     </div>
+    <div class="location-grid">
+      <div class="location-image-box">
+        <img src="/images/enoch-office.png" alt="Office Lobby" class="location-img" />
+      </div>
+      <div class="location-image-box">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3615.8090538605584!2d121.45878417604675!3d25.006608239396345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346802a73f18fe57%3A0x26d7728d3f67204e!2zMjIw5paw5YyX5biC5p2_6KmL5Y2A5pmv5pif6YeM6YeN6o626LevNjbomZ856ZOT5LmLMg!5e0!3m2!1szh-TW!2stw!4v1715068222955!5m2!1szh-TW!2stw"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -1307,6 +1323,47 @@ const partners = [
   }
   .info-value {
     font-size: 0.9rem;
+  }
+}
+
+.location-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 3rem auto 0;
+}
+
+.location-image-box {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.location-img,
+.location-image-box iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  display: block;
+}
+
+.location-image-box:hover .location-img {
+  transform: scale(1.05);
+}
+
+@media (max-width: 1024px) {
+  .location-grid {
+    grid-template-columns: 1fr;
+    margin-top: 2rem;
+    padding: 0 1rem;
+    gap: 1rem;
+  }
+  .location-image-box {
+    height: 300px;
   }
 }
 </style>
