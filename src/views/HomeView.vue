@@ -307,9 +307,107 @@
       </div>
     </div>
   </section>
+
+  <section class="consultation-section">
+    <div class="consultation-container">
+      <!-- Left: Form Card -->
+      <div class="consultation-form-card">
+        <h3 class="form-title">線上立即免費法律諮詢</h3>
+        <p class="form-subtitle">請填寫以下資訊，我們將由專家律師為您安排初次諮詢。</p>
+        
+        <form class="consultation-form">
+          <div class="form-row">
+            <div class="input-group name-group">
+              <input type="text" placeholder="您的姓名" class="form-input" />
+            </div>
+            <div class="gender-toggle">
+              <span class="toggle-label">稱呼</span>
+              <button 
+                type="button" 
+                class="toggle-btn" 
+                :class="{ active: selectedGender === '先生' }"
+                @click="selectedGender = '先生'"
+              >先生</button>
+              <button 
+                type="button" 
+                class="toggle-btn" 
+                :class="{ active: selectedGender === '小姐' }"
+                @click="selectedGender = '小姐'"
+              >小姐</button>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="input-group">
+              <input type="text" placeholder="聯絡電話" class="form-input" />
+            </div>
+            <div class="input-group">
+              <input type="email" placeholder="電子郵件" class="form-input" />
+            </div>
+          </div>
+          
+          <button type="submit" class="submit-btn">立即免費諮詢</button>
+        </form>
+      </div>
+
+      <!-- Right: Locations Info -->
+      <div class="locations-info">
+        <div class="locations-header">
+          <svg class="location-pin" viewBox="0 0 24 24" width="28" height="28" fill="#34324E"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          <h2 class="locations-title">全台服務據點</h2>
+        </div>
+        <p class="locations-desc">
+          除了便捷的線上諮詢，我們在全台設有實體服務據點。<br>
+          無論是透過遠端方式靈活溝通，或於需要出庭、文件簽署及實體法律支援時，都能提供您最即時且完善的在地協助。
+        </p>
+        
+        <div class="branches-grid">
+          <div class="branch-item">
+            <span class="accent-bar primary"></span>
+            <div class="branch-content">
+              <span class="branch-name">新北板橋總所</span>
+              <p class="branch-address">新北市板橋區重慶路66號9樓之2</p>
+            </div>
+          </div>
+          <div class="branch-item">
+            <span class="accent-bar"></span>
+            <div class="branch-content">
+              <span class="branch-name">高雄所</span>
+              <p class="branch-address">高雄市三民區九如二路583號5樓之1</p>
+            </div>
+          </div>
+          <div class="branch-item">
+            <span class="accent-bar"></span>
+            <div class="branch-content">
+              <span class="branch-name">桃園所（外語吧）</span>
+              <p class="branch-address">桃園市桃園區縣府路110號4樓之2</p>
+            </div>
+          </div>
+          <div class="branch-item">
+            <span class="accent-bar"></span>
+            <div class="branch-content">
+              <span class="branch-name">台南所</span>
+              <p class="branch-address">台南市中西區健康路一段420巷4號</p>
+            </div>
+          </div>
+          <div class="branch-item">
+            <span class="accent-bar"></span>
+            <div class="branch-content">
+              <span class="branch-name">臺中所</span>
+              <p class="branch-address">台中市西屯區台灣大道二段910號11樓之5</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
+const selectedGender = ref('先生');
+
 const partners = [
   { name: 'Allpower', img: '/images/running-01.png' },
   { name: 'PayUNI', img: '/images/running-02.png' },
@@ -1364,6 +1462,252 @@ const partners = [
   }
   .location-image-box {
     height: 300px;
+  }
+}
+
+.consultation-section {
+  padding: 0rem 2rem;
+  padding-bottom: 4rem;
+  background-color: #F9F9F9;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+.consultation-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 4rem;
+  align-items: flex-start;
+}
+
+/* Form Card Styles */
+.consultation-form-card {
+  flex: 1;
+  background: white;
+  padding: 3rem;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.form-title {
+  color: #34324E;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  text-align: left;
+}
+
+.form-subtitle {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 2.5rem;
+  text-align: left;
+}
+
+.consultation-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.input-group {
+  flex: 1;
+}
+
+.name-group {
+  flex: 1.5;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.75rem 0;
+  border: none;
+  border-bottom: 1px solid #E0E0E0;
+  background: transparent;
+  font-size: 1rem;
+  color: #34324E;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus {
+  outline: none;
+  border-bottom-color: #CE7A49;
+}
+
+.gender-toggle {
+  display: flex;
+  align-items: center;
+  background: #F5F5F5;
+  border-radius: 4px;
+  padding: 2px;
+  flex: 1;
+}
+
+.toggle-label {
+  font-size: 0.85rem;
+  color: #888;
+  padding: 0 0.75rem;
+}
+
+.toggle-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.toggle-btn.active {
+  background: #34324E;
+  color: white;
+}
+
+.submit-btn {
+  background: #CE7A49;
+  color: white;
+  border: none;
+  padding: 1.25rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.3s;
+}
+
+.submit-btn:hover {
+  background: #B56538;
+}
+
+/* Locations Info Styles */
+.locations-info {
+  flex: 1.2;
+}
+
+.locations-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.locations-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #34324E;
+  margin: 0;
+}
+
+.locations-desc {
+  color: #666;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  text-align: left;
+}
+
+.branches-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem 2.5rem;
+}
+
+.branch-item {
+  display: flex;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+.accent-bar {
+  width: 3px;
+  background-color: #D1D1D1;
+  flex-shrink: 0;
+}
+
+.accent-bar.primary {
+  background-color: #CE7A49;
+}
+
+.branch-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+  gap: 0.4rem;
+}
+
+.branch-name {
+  font-weight: 700;
+  color: #34324E;
+  font-size: 1.1rem;
+  line-height: 1.2;
+}
+
+.branch-address {
+  color: #888;
+  font-size: 0.9rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+@media (max-width: 1024px) {
+  .consultation-container {
+    flex-direction: column;
+    gap: 5rem;
+  }
+  .consultation-form-card {
+    width: 100%;
+    order: 1;
+  }
+  .locations-info {
+    width: 100%;
+    order: 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .consultation-section {
+    width: 100%;
+    padding: 0 1.25rem 4rem;
+    box-sizing: border-box;
+  }
+  .consultation-container {
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  .consultation-form-card {
+    width: 100%;
+    padding: 2rem 1.25rem;
+    box-sizing: border-box;
+  }
+  .form-row {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .name-group, .gender-toggle, .input-group {
+    width: 100%;
+    flex: none;
+  }
+  .gender-toggle {
+    justify-content: space-between;
+    padding: 0.5rem;
+  }
+  .branches-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .form-title {
+    font-size: 1.5rem;
   }
 }
 </style>
