@@ -552,7 +552,7 @@ const partners = [
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Playfair+Display:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Playfair+Display:wght@500;700&display=swap');
 
 .top-bar {
   background-color: #34324E;
@@ -1846,7 +1846,7 @@ const partners = [
     linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 50px 50px;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: 'Noto Serif TC', serif;
   color: #fff;
   text-align: left;
 }
@@ -2134,7 +2134,7 @@ const partners = [
   background-color: #F9F9F9;
   padding: 1.2rem 2rem;
   text-align: center;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: 'Noto Serif TC', serif;
 }
 
 .copyright-inner {
