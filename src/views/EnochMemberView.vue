@@ -214,7 +214,8 @@ const selectTab = async (tab, index) => {
   // 平滑滾動到對應區塊
   const section = sectionRefs.value[index];
   if (section) {
-    const yOffset = -40; // 預留上方空間
+    const isMobile = window.innerWidth <= 768;
+    const yOffset = isMobile ? -90 : -40; // 手機版需要預留更多空間給上方固定的選單
     const y = section.getBoundingClientRect().top + window.scrollY + yOffset;
     window.scrollTo({ top: y, behavior: 'smooth' });
     
