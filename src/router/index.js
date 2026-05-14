@@ -1,11 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import EnochMemberView from '../views/EnochMemberView.vue'
 
 const routes = [
   {
     path: '/',
     name: 'Home',
     component: HomeView,
+  },
+  {
+    path: '/member',
+    name: 'Member',
+    component: EnochMemberView,
   }
 ]
 

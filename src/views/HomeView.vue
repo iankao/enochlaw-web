@@ -26,7 +26,7 @@
         <img src="/images/enoch-logo-black.png" alt="Enoch Logo" class="navbar-logo" />
       </div>
       <ul class="navbar-menu">
-        <li><a href="#" class="navbar-link">以諾團隊</a></li>
+        <li><router-link to="/member" class="navbar-link">以諾團隊</router-link></li>
         <li><a href="#" class="navbar-link">法律專欄</a></li>
         <li><a href="#" class="navbar-link">勝訴案例</a></li>
         <li><a href="#" class="navbar-link">時事影音</a></li>
