@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <header class="top-bar">
     <div class="top-bar-content">
       <div class="top-bar-left">
@@ -536,18 +536,18 @@ const selectedGender = ref('先生');
 
 const partners = [
   { name: 'Allpower', img: '/images/running-01.png' },
-  { name: 'PayUNI', img: '/images/running-02.png' },
-  { name: '康華會計師事務所', img: '/images/running-03.png' },
-  { name: '立達欣業', img: '/images/running-04.png' },
-  { name: '立達徵信', img: '/images/running-05.png' },
-  { name: '銀角零卡', img: '/images/running-06.png' },
-  { name: '立傳媒', img: '/images/running-07.png' },
+  { name: '立達欣業', img: '/images/running-02.png' },
+  { name: '立傳媒', img: '/images/running-03.png' },
+  { name: '立達徵信', img: '/images/running-04.png' },
+  { name: '銀角零卡', img: '/images/running-05.png' },
+  { name: 'PayUNI', img: '/images/running-06.png' },
+  { name: '康華會計師事務所', img: '/images/running-07.png' },
   { name: '台灣正念工坊', img: '/images/running-08.png' },
-  { name: '外語吧', img: '/images/running-09.png' },
-  { name: '解題吧', img: '/images/running-10.png' },
-  { name: '童童哥', img: '/images/running-11.png' },
-  { name: '玖月智權事務所', img: '/images/running-12.png' },
-  { name: '以諾法律', img: '/images/running-13.png' },
+  { name: '育德智慧財產事務所', img: '/images/running-09.png' },
+  { name: '法博思品牌顧問公司', img: '/images/running-10.png' },
+  { name: 'nomomarket', img: '/images/running-11.png' },
+  { name: '甩泰餐酒館', img: '/images/running-12.png' },
+  { name: '奈子光空間設計', img: '/images/running-13.png' },
 ];
 </script>
 
@@ -561,7 +561,7 @@ const partners = [
   top: 0;
   z-index: 50;
   width: 100%;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: 'Noto Serif TC', serif;
 }
 
 .top-bar-content {
@@ -615,7 +615,7 @@ const partners = [
   background-color: #fff;
   padding: 1rem 0;
   width: 100%;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: 'Noto Serif TC', serif;
   border-bottom: 1px solid #f0f0f0;
 }
 
@@ -887,7 +887,7 @@ const partners = [
 .about-section {
   padding: 6rem 2rem;
   background-color: #fff;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: 'Noto Serif TC', serif;
 }
 
 .about-header {
@@ -998,7 +998,7 @@ const partners = [
 .services-section {
   padding: 1rem 2rem;
   background-color: #fff;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: 'Noto Serif TC', serif;
   margin-bottom: 6rem;
 }
 
@@ -1088,7 +1088,7 @@ const partners = [
 .process-section {
   padding: 6rem 2rem;
   background-color: #FDF5F0;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: 'Noto Serif TC', serif;
 }
 
 .process-header {
@@ -1319,6 +1319,8 @@ const partners = [
 .marquee-content {
   display: flex;
   gap: 4rem;
+  padding-right: 4rem;
+  width: max-content;
   animation: marquee 40s linear infinite;
   white-space: nowrap;
 }
@@ -1403,9 +1405,15 @@ const partners = [
   .partners-title {
     font-size: 1.5rem;
   }
-  .footer-logos-content {
-    justify-content: flex-start;
-    padding: 0 1rem;
+  .marquee-content {
+    gap: 2rem;
+    padding-right: 2rem;
+  }
+  .f-logo-item {
+    min-width: 150px; /* 180px * 0.85 approx */
+  }
+  .f-logo-img-box {
+    height: 34px; /* 40px * 0.85 */
   }
 }
 
@@ -1413,7 +1421,7 @@ const partners = [
   padding: 6rem 2rem;
   background-color: #F9F9F9;
   text-align: center;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: 'Noto Serif TC', serif;
 }
 
 .contact-header {
@@ -1595,7 +1603,7 @@ const partners = [
   padding: 0rem 2rem;
   padding-bottom: 4rem;
   background-color: #F9F9F9;
-  font-family: 'Noto Sans TC', sans-serif;
+  font-family: 'Noto Serif TC', serif;
 }
 
 .consultation-container {
