@@ -39,18 +39,110 @@
 
     <div class="team-container">
       <aside class="team-sidebar">
-        <ul class="tab-list" :style="{ '--active-index': activeIndex }">
+        <ul class="tab-list" 
+            ref="tabListRef" 
+            :style="{ '--active-index': activeIndex }"
+            @mousedown="startDragging"
+            @mouseleave="stopDragging"
+            @mouseup="stopDragging"
+            @mousemove="onDragging">
           <li v-for="(tab, index) in tabs" :key="tab"
               class="tab-item"
               :class="{ active: activeTab === tab }"
-              @click="selectTab(tab, index)">
+              @click="selectTab(tab, index)"
+              :ref="el => { if (el) tabRefs[index] = el }">
             {{ tab }}
           </li>
+          <div class="mobile-slider" :style="{ transform: `translateX(${indicatorLeft}px)`, width: `${indicatorWidth}px` }"></div>
         </ul>
       </aside>
       
       <main class="team-content">
-        <!-- 團隊成員內容將加在這裡 -->
+        <!-- 所長區塊 -->
+        <div class="member-section" :ref="el => { if (el) sectionRefs[0] = el }" id="section-0">
+          <div class="member-list">
+            <div class="member-card">
+              <div class="member-photo">
+                <img src="/images/ton-boss.png" alt="所長 童行" />
+              </div>
+              <div class="member-info">
+                <h4 class="member-title">所長</h4>
+                <h2 class="member-name">童行</h2>
+                <div class="member-divider"></div>
+                <p class="member-quote">
+                  法律難關往往伴隨情緒焦慮；<br>
+                  我們不只爭取權益，更致力於為你找回心中的平靜。
+                </p>
+              </div>
+            </div>
+            <div class="card-bottom-line"></div>
+          </div>
+        </div>
+
+        <!-- 主任律師區塊 -->
+        <div class="member-section" :ref="el => { if (el) sectionRefs[1] = el }" id="section-1">
+          <div class="member-list">
+            <div class="member-grid">
+              <div class="member-grid-card">
+                <div class="member-photo-square">
+                  <img src="/images/big-lawyer001.png" alt="主任律師 林士為" />
+                </div>
+                <div class="member-grid-info">
+                  <h4 class="member-title">主任律師</h4>
+                  <h2 class="member-name">林士為</h2>
+                </div>
+              </div>
+              
+              <div class="member-grid-card">
+                <div class="member-photo-square">
+                  <img src="/images/big-lawyer002.png" alt="主任律師 黃俊凱" />
+                </div>
+                <div class="member-grid-info">
+                  <h4 class="member-title">主任律師</h4>
+                  <h2 class="member-name">黃俊凱</h2>
+                </div>
+              </div>
+              
+              <div class="member-grid-card">
+                <div class="member-photo-square">
+                  <img src="/images/big-lawyer003.png" alt="主任律師 徐子評" />
+                </div>
+                <div class="member-grid-info">
+                  <h4 class="member-title">主任律師</h4>
+                  <h2 class="member-name">徐子評</h2>
+                </div>
+              </div>
+            </div>
+            <div class="card-bottom-line"></div>
+          </div>
+        </div>
+        
+        <!-- 律師區塊佔位 -->
+        <div class="member-section" :ref="el => { if (el) sectionRefs[2] = el }" id="section-2">
+          <div class="member-list placeholder-section">
+             <h4 class="member-title">律師</h4>
+             <p style="color: #999;">內容建置中...</p>
+             <div class="card-bottom-line"></div>
+          </div>
+        </div>
+        
+        <!-- 法務顧問區塊佔位 -->
+        <div class="member-section" :ref="el => { if (el) sectionRefs[3] = el }" id="section-3">
+          <div class="member-list placeholder-section">
+             <h4 class="member-title">法務顧問</h4>
+             <p style="color: #999;">內容建置中...</p>
+             <div class="card-bottom-line"></div>
+          </div>
+        </div>
+        
+        <!-- 美國紐約律師區塊佔位 -->
+        <div class="member-section" :ref="el => { if (el) sectionRefs[4] = el }" id="section-4">
+          <div class="member-list placeholder-section">
+             <h4 class="member-title">美國紐約律師</h4>
+             <p style="color: #999;">內容建置中...</p>
+             <div class="card-bottom-line"></div>
+          </div>
+        </div>
       </main>
     </div>
 
@@ -58,7 +150,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, onUnmounted, nextTick } from 'vue';
 
 const isMenuOpen = ref(false);
 
@@ -66,10 +158,118 @@ const tabs = ['所長', '主任律師', '律師', '法務顧問', '美國紐約�
 const activeTab = ref('所長');
 const activeIndex = ref(0);
 
-const selectTab = (tab, index) => {
+const tabRefs = ref([]);
+const sectionRefs = ref([]);
+const tabListRef = ref(null);
+const indicatorLeft = ref(0);
+const indicatorWidth = ref(0);
+const isScrolling = ref(false); // 避免點擊滾動時觸發 Observer
+
+// 拖曳捲動相關變數
+const isDragging = ref(false);
+const startX = ref(0);
+const scrollLeft = ref(0);
+
+const startDragging = (e) => {
+  isDragging.value = true;
+  startX.value = e.pageX - tabListRef.value.offsetLeft;
+  scrollLeft.value = tabListRef.value.scrollLeft;
+};
+
+const stopDragging = () => {
+  isDragging.value = false;
+};
+
+const onDragging = (e) => {
+  if (!isDragging.value) return;
+  e.preventDefault();
+  const x = e.pageX - tabListRef.value.offsetLeft;
+  const walk = (x - startX.value) * 2; // 拖曳靈敏度
+  tabListRef.value.scrollLeft = scrollLeft.value - walk;
+};
+
+const updateMobileIndicator = (index) => {
+  if (tabRefs.value[index]) {
+    indicatorLeft.value = tabRefs.value[index].offsetLeft;
+    indicatorWidth.value = tabRefs.value[index].offsetWidth;
+    
+    // 自動捲動使目前標籤保持在畫面中央 (僅在手機模式)
+    if (tabListRef.value && window.innerWidth <= 768) {
+      const tabList = tabListRef.value;
+      const tab = tabRefs.value[index];
+      const scrollPos = tab.offsetLeft - (tabList.offsetWidth / 2) + (tab.offsetWidth / 2);
+      tabList.scrollTo({ left: scrollPos, behavior: 'smooth' });
+    }
+  }
+};
+
+const selectTab = async (tab, index) => {
   activeTab.value = tab;
   activeIndex.value = index;
+  isScrolling.value = true;
+  
+  await nextTick();
+  updateMobileIndicator(index);
+  
+  // 平滑滾動到對應區塊
+  const section = sectionRefs.value[index];
+  if (section) {
+    const yOffset = -40; // 預留上方空間
+    const y = section.getBoundingClientRect().top + window.scrollY + yOffset;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+    
+    // 延遲恢復 Observer 監聽，避免滾動途中觸發
+    setTimeout(() => {
+      isScrolling.value = false;
+    }, 800);
+  }
 };
+
+const handleResize = () => {
+  updateMobileIndicator(activeIndex.value);
+};
+
+onMounted(() => {
+  // 稍等 DOM 渲染完成後再計算
+  setTimeout(() => {
+    updateMobileIndicator(0);
+  }, 100);
+
+  // 設定 Intersection Observer 偵測畫面滾動
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -70% 0px', // 當區塊進入畫面中上方時觸發
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    if (isScrolling.value) return; // 如果是點擊觸發的滾動，不更新狀態
+    
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const index = sectionRefs.value.indexOf(entry.target);
+        if (index !== -1 && activeIndex.value !== index) {
+          activeTab.value = tabs[index];
+          activeIndex.value = index;
+          updateMobileIndicator(index);
+        }
+      }
+    });
+  }, observerOptions);
+
+  // 監聽所有區塊
+  setTimeout(() => {
+    sectionRefs.value.forEach(section => {
+      if (section) observer.observe(section);
+    });
+  }, 100);
+
+  window.addEventListener('resize', handleResize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('resize', handleResize);
+});
 </script>
 
 <style scoped>
@@ -279,11 +479,16 @@ const selectTab = (tab, index) => {
   margin: 4rem auto;
   padding: 0 2rem;
   gap: 4rem;
+  align-items: flex-start; /* 讓 Sidebar 可以有 sticky 效果 */
 }
 
 .team-sidebar {
   width: 200px;
   flex-shrink: 0;
+  position: sticky;
+  top: 100px; /* 固定在距離視窗頂部的位置 */
+  height: max-content;
+  align-self: flex-start;
 }
 
 .tab-list {
@@ -304,19 +509,21 @@ const selectTab = (tab, index) => {
   top: 0;
   bottom: 0;
   left: 0;
-  width: 2px;
+  width: 3px;
   background-color: #f0f0f0;
+  z-index: 1;
 }
 
 /* 滑動的橘色指示器 */
 .tab-list::after {
   content: '';
   position: absolute;
-  top: -4px; /* 為了讓加長的線條垂直置中於文字 */
-  left: -1px; /* 為了讓 4px 的線條置中於 2px 的灰色軌道上 */
-  width: 3px; /* 加粗 */
+  top: -8px; /* 為了讓加長的線條垂直置中於文字 (40-24)/2 = 8 */
+  left: 0; /* 與軌道完美貼齊 */
+  width: 3px; /* 與軌道厚度一致 */
   height: 40px; /* 加長 */
   background-color: #CE7A49;
+  z-index: 2; /* 確保在軌道上層 */
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   transform: translateY(calc(var(--active-index) * (24px + 2.5rem)));
 }
@@ -347,6 +554,10 @@ const selectTab = (tab, index) => {
   flex: 1;
 }
 
+.mobile-slider {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .team-container {
     flex-direction: column;
@@ -356,6 +567,24 @@ const selectTab = (tab, index) => {
   
   .team-sidebar {
     width: 100%;
+    position: sticky;
+    top: 0;
+    background-color: #f9f9f9; /* 與背景色相同，避免往下滑動時文字重疊 */
+    z-index: 20;
+    padding-top: 1rem; /* 稍微留一點上方空間看起來更舒服 */
+    margin-bottom: 1rem;
+  }
+  
+  /* 手機版的灰色軌道，放在 wrapper 避免被 overflow 裁切 */
+  .team-sidebar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: #f0f0f0;
+    z-index: 1;
   }
   
   .tab-list {
@@ -364,9 +593,25 @@ const selectTab = (tab, index) => {
     padding-bottom: 0.5rem;
     padding-left: 0;
     gap: 1.5rem;
-    border-bottom: 1px solid #eee;
+    border-bottom: none; /* 移除 border，改用上面的 ::after */
+    position: relative; 
+    z-index: 2; /* 確保選單與橘線在灰色軌道上層 */
+    cursor: grab; /* 提示可拖曳 */
+    
+    /* 隱藏醜醜的拖曳捲軸 */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
   }
   
+  .tab-list:active {
+    cursor: grabbing;
+  }
+  
+  .tab-list::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* 隱藏桌機版的垂直軌道與指示器 */
   .tab-list::before,
   .tab-list::after {
     display: none;
@@ -376,13 +621,161 @@ const selectTab = (tab, index) => {
     white-space: nowrap;
     padding-left: 0;
     padding-bottom: 0.5rem;
-    border-bottom: 3px solid transparent;
     height: auto;
     line-height: inherit;
   }
   
-  .tab-item.active {
-    border-bottom-color: #CE7A49;
+  .mobile-slider {
+    display: block;
+    position: absolute;
+    bottom: 0; /* 剛好對齊底部的 padding，不會被裁切 */
+    left: 0;
+    height: 3px; /* 與軌道厚度一致 */
+    background-color: #CE7A49;
+    z-index: 3; /* 確保在最上層 */
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+}
+
+.member-section {
+  scroll-margin-top: 4rem; /* 確保透過 href 或 JS 滾動時預留空間 */
+}
+
+.placeholder-section {
+  padding: 4rem 0;
+}
+
+/* 成員卡片樣式 */
+.member-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.member-card {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+
+.member-photo {
+  width: 250px;
+  flex-shrink: 0;
+  background-color: #f5f5f5; /* 淺灰色背景 */
+  overflow: hidden;
+}
+
+.member-photo img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.member-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.member-title {
+  color: #CE7A49;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 0 0 0.5rem 0;
+}
+
+.member-name {
+  color: #333;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 0 1.2rem 0;
+  letter-spacing: 0.1em;
+}
+
+.member-divider {
+  width: 40px;
+  height: 1px;
+  background-color: #e0e0e0;
+  margin: 0 0 1.5rem 0;
+}
+
+.member-quote {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.8;
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+
+.card-bottom-line {
+  width: 100%;
+  height: 1px;
+  background-color: #eee;
+  margin-top: 1.5rem; /* 配合 flex gap: 2rem，上方視覺總間距為 3.5rem */
+  margin-bottom: 3.5rem; /* 下方間距 3.5rem，達成視覺平衡 */
+}
+
+/* 網格卡片樣式 (主任律師等) */
+.member-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+
+.member-grid-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.member-photo-square {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: #f5f5f5;
+  overflow: hidden;
+}
+
+.member-photo-square img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.member-grid-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+@media (max-width: 992px) {
+  .member-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .member-card {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: flex-start;
+  }
+  
+  .member-photo {
+    width: 100%;
+    max-width: 280px;
+  }
+}
+
+@media (max-width: 576px) {
+  .member-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>
