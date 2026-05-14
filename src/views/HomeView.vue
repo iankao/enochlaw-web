@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <header class="top-bar">
     <div class="top-bar-content">
       <div class="top-bar-left">
@@ -238,14 +238,16 @@
             <!-- First set of logos -->
             <div v-for="(partner, index) in partners" :key="'p1-' + index" class="f-logo-item">
               <div class="f-logo-img-box">
-                <img :src="partner.img" :alt="partner.name" />
+                <img :src="partner.img" :alt="partner.name" class="img-grey" />
+                <img :src="partner.img.replace('-grey', '')" :alt="partner.name" class="img-color" />
               </div>
               <span class="f-logo-name">{{ partner.name }}</span>
             </div>
             <!-- Duplicated set for seamless loop -->
             <div v-for="(partner, index) in partners" :key="'p2-' + index" class="f-logo-item">
               <div class="f-logo-img-box">
-                <img :src="partner.img" :alt="partner.name" />
+                <img :src="partner.img" :alt="partner.name" class="img-grey" />
+                <img :src="partner.img.replace('-grey', '')" :alt="partner.name" class="img-color" />
               </div>
               <span class="f-logo-name">{{ partner.name }}</span>
             </div>
@@ -535,19 +537,19 @@ import { ref } from 'vue';
 const selectedGender = ref('先生');
 
 const partners = [
-  { name: 'Allpower', img: '/images/running-01.png' },
-  { name: '立達欣業', img: '/images/running-02.png' },
-  { name: '立傳媒', img: '/images/running-03.png' },
-  { name: '立達徵信', img: '/images/running-04.png' },
-  { name: '銀角零卡', img: '/images/running-05.png' },
-  { name: 'PayUNI', img: '/images/running-06.png' },
-  { name: '康華會計師事務所', img: '/images/running-07.png' },
-  { name: '台灣正念工坊', img: '/images/running-08.png' },
-  { name: '育德智慧財產事務所', img: '/images/running-09.png' },
-  { name: '法博思品牌顧問公司', img: '/images/running-10.png' },
-  { name: 'nomomarket', img: '/images/running-11.png' },
-  { name: '甩泰餐酒館', img: '/images/running-12.png' },
-  { name: '奈子光空間設計', img: '/images/running-13.png' },
+  { name: 'Allpower', img: '/images/running-01-grey.png' },
+  { name: '立達欣業', img: '/images/running-02-grey.png' },
+  { name: '立傳媒', img: '/images/running-03-grey.png' },
+  { name: '立達徵信', img: '/images/running-04-grey.png' },
+  { name: '銀角零卡', img: '/images/running-05-grey.png' },
+  { name: 'PayUNI', img: '/images/running-06-grey.png' },
+  { name: '康華會計師事務所', img: '/images/running-07-grey.png' },
+  { name: '台灣正念工坊', img: '/images/running-08-grey.png' },
+  { name: '育德智慧財產事務所', img: '/images/running-09-grey.png' },
+  { name: '法博思品牌顧問公司', img: '/images/running-10-grey.png' },
+  { name: 'nomomarket', img: '/images/running-11-grey.png' },
+  { name: '甩泰餐酒館', img: '/images/running-12-grey.png' },
+  { name: '奈子光空間設計', img: '/images/running-13-grey.png' },
 ];
 </script>
 
@@ -1344,20 +1346,35 @@ const partners = [
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .f-logo-img-box img {
   max-height: 100%;
   width: auto;
-  filter: brightness(0) invert(1);
-  opacity: 0.8;
   transition: all 0.3s ease;
 }
 
-.f-logo-item:hover .f-logo-img-box img {
-  opacity: 1;
+.img-grey {
+  opacity: 0.8;
+}
+
+.img-color {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+.f-logo-item:hover .img-grey {
+  opacity: 0;
   transform: scale(1.05);
-  filter: none;
+}
+
+.f-logo-item:hover .img-color {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.05);
 }
 
 .f-logo-name {
