@@ -37,6 +37,23 @@
       </div>
     </section>
 
+    <div class="team-container">
+      <aside class="team-sidebar">
+        <ul class="tab-list" :style="{ '--active-index': activeIndex }">
+          <li v-for="(tab, index) in tabs" :key="tab"
+              class="tab-item"
+              :class="{ active: activeTab === tab }"
+              @click="selectTab(tab, index)">
+            {{ tab }}
+          </li>
+        </ul>
+      </aside>
+      
+      <main class="team-content">
+        <!-- 團隊成員內容將加在這裡 -->
+      </main>
+    </div>
+
   </div>
 </template>
 
@@ -44,6 +61,15 @@
 import { ref } from 'vue';
 
 const isMenuOpen = ref(false);
+
+const tabs = ['所長', '主任律師', '律師', '法務顧問', '美國紐約律師'];
+const activeTab = ref('所長');
+const activeIndex = ref(0);
+
+const selectTab = (tab, index) => {
+  activeTab.value = tab;
+  activeIndex.value = index;
+};
 </script>
 
 <style scoped>
@@ -244,6 +270,119 @@ const isMenuOpen = ref(false);
   }
   .hero-subtitle {
     font-size: 1rem;
+  }
+}
+
+.team-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+  gap: 4rem;
+}
+
+.team-sidebar {
+  width: 200px;
+  flex-shrink: 0;
+}
+
+.tab-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem; /* 增加選項間距以符合設計稿 */
+  position: relative;
+  padding-left: 1.5rem;
+}
+
+/* 軌道底線 */
+.tab-list::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background-color: #f0f0f0;
+}
+
+/* 滑動的橘色指示器 */
+.tab-list::after {
+  content: '';
+  position: absolute;
+  top: -4px; /* 為了讓加長的線條垂直置中於文字 */
+  left: -1px; /* 為了讓 4px 的線條置中於 2px 的灰色軌道上 */
+  width: 3px; /* 加粗 */
+  height: 40px; /* 加長 */
+  background-color: #CE7A49;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  transform: translateY(calc(var(--active-index) * (24px + 2.5rem)));
+}
+
+.tab-item {
+  font-size: 1.1rem;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.3s ease;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  height: 24px;
+  line-height: 24px;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+.tab-item:hover {
+  color: #555;
+}
+
+.tab-item.active {
+  color: #CE7A49;
+}
+
+.team-content {
+  flex: 1;
+}
+
+@media (max-width: 768px) {
+  .team-container {
+    flex-direction: column;
+    margin: 2rem auto;
+    gap: 2rem;
+  }
+  
+  .team-sidebar {
+    width: 100%;
+  }
+  
+  .tab-list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    padding-left: 0;
+    gap: 1.5rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .tab-list::before,
+  .tab-list::after {
+    display: none;
+  }
+  
+  .tab-item {
+    white-space: nowrap;
+    padding-left: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid transparent;
+    height: auto;
+    line-height: inherit;
+  }
+  
+  .tab-item.active {
+    border-bottom-color: #CE7A49;
   }
 }
 </style>
