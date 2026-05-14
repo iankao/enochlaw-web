@@ -597,6 +597,7 @@ onUnmounted(() => {
     position: relative; 
     z-index: 2; /* 確保選單與橘線在灰色軌道上層 */
     cursor: grab; /* 提示可拖曳 */
+    user-select: none; /* 避免拖曳時反白選取到文字 */
     
     /* 隱藏醜醜的拖曳捲軸 */
     -ms-overflow-style: none;  /* IE and Edge */
