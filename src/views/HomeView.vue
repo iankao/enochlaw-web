@@ -659,7 +659,8 @@ const partners = [
   transition: color 0.3s ease;
 }
 
-.navbar-link:hover {
+.navbar-link:hover,
+.navbar-link.router-link-active {
   color: #CE7A49;
 }
 
