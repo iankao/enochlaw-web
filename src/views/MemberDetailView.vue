@@ -29,78 +29,77 @@
       </div>
     </nav>
 
-    <!-- Back Button -->
-    <div class="back-nav">
+    <div class="main-content">
       <div class="container">
+        <!-- Back Button -->
         <router-link to="/member" class="back-link">
-          <span class="arrow">←</span> 返回團隊列表
+          <span class="arrow">←</span> 返回列表
         </router-link>
-      </div>
-    </div>
 
-    <!-- Hero Section -->
-    <section class="member-hero">
-      <div class="container hero-flex">
-        <div class="hero-image-box">
-          <img :src="member.image" :alt="member.name" class="hero-image" />
-          <div class="image-accent"></div>
-        </div>
-        <div class="hero-info">
-          <h4 class="member-category">{{ member.category }}</h4>
-          <h1 class="member-name">{{ member.name }}</h1>
-          <h3 class="member-title-full">{{ member.title }}</h3>
-          <div class="hero-divider"></div>
-          <p class="member-quote" v-if="member.quote" v-html="member.quote.replace(/\n/g, '<br>')"></p>
-        </div>
-      </div>
-    </section>
+        <!-- Top Section: Photo & Basic Info -->
+        <section class="profile-header">
+          <div class="photo-column">
+            <img :src="member.image" :alt="member.name" class="member-photo-large" />
+          </div>
+          <div class="info-column">
+            <h4 class="category-label">{{ member.category }}</h4>
+            <h1 class="member-name-main">{{ member.name }}</h1>
+            <p class="english-name">{{ member.englishName }}</p>
+            
+            <div class="bio-paragraphs">
+              <p v-for="(p, idx) in member.bio" :key="idx">{{ p }}</p>
+            </div>
+          </div>
+        </section>
 
-    <!-- Content Sections -->
-    <section class="member-content">
-      <div class="container">
-        <div class="content-grid">
-          <!-- Left Column: Bio -->
-          <div class="bio-section">
-            <h2 class="section-title">個人簡介</h2>
-            <p class="bio-text">{{ member.bio }}</p>
+        <!-- Bottom Section: Detailed Info -->
+        <section class="profile-details">
+          <!-- Left: Specialties -->
+          <div class="specialties-column">
+            <h2 class="deco-title">專長</h2>
+            <div class="specialty-grid">
+              <span v-for="spec in member.specialties" :key="spec" class="spec-tag">{{ spec }}</span>
+            </div>
           </div>
 
-          <!-- Right Column: Details -->
-          <div class="details-section">
+          <!-- Right: Lists -->
+          <div class="lists-column">
             <!-- Education -->
-            <div class="detail-block" v-if="member.education && member.education.length">
-              <h4 class="detail-title">學歷</h4>
-              <ul class="detail-list">
-                <li v-for="edu in member.education" :key="edu">{{ edu }}</li>
+            <div class="list-block" v-if="member.education?.length">
+              <h2 class="deco-title">學歷背景</h2>
+              <ul class="info-list">
+                <li v-for="item in member.education" :key="item">{{ item }}</li>
               </ul>
             </div>
 
             <!-- Experience -->
-            <div class="detail-block" v-if="member.experience && member.experience.length">
-              <h4 class="detail-title">經歷</h4>
-              <ul class="detail-list">
-                <li v-for="exp in member.experience" :key="exp">{{ exp }}</li>
+            <div class="list-block" v-if="member.experience?.length">
+              <h2 class="deco-title">經歷</h2>
+              <ul class="info-list">
+                <li v-for="item in member.experience" :key="item">{{ item }}</li>
               </ul>
             </div>
 
-            <!-- Specialties -->
-            <div class="detail-block" v-if="member.specialties && member.specialties.length">
-              <h4 class="detail-title">專長領域</h4>
-              <div class="specialty-tags">
-                <span v-for="spec in member.specialties" :key="spec" class="tag">{{ spec }}</span>
-              </div>
+            <!-- Current Positions -->
+            <div class="list-block" v-if="member.currentPositions?.length">
+              <h2 class="deco-title">現職</h2>
+              <ul class="info-list">
+                <li v-for="item in member.currentPositions" :key="item">{{ item }}</li>
+              </ul>
+            </div>
+
+            <!-- Publications -->
+            <div class="list-block" v-if="member.publications?.length">
+              <h2 class="deco-title">著作</h2>
+              <ul class="info-list">
+                <li v-for="item in member.publications" :key="item">{{ item }}</li>
+              </ul>
             </div>
           </div>
-        </div>
+        </section>
       </div>
-    </section>
+    </div>
 
-    <!-- Footer Space -->
-    <div class="footer-spacer"></div>
-  </div>
-  <div v-else class="not-found">
-    <p>找不到該成員資訊</p>
-    <router-link to="/member">返回團隊列表</router-link>
   </div>
 </template>
 
@@ -122,12 +121,13 @@ onMounted(() => {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Playfair+Display:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Playfair+Display:wght@500;700&display=swap');
 
 .member-detail-page {
   font-family: 'Noto Serif TC', serif;
   background-color: #fff;
   min-height: 100vh;
+  color: #333;
 }
 
 /* Navbar */
@@ -146,6 +146,11 @@ onMounted(() => {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
 }
 
 .navbar-logo {
@@ -194,6 +199,10 @@ onMounted(() => {
   transition: all 0.3s ease;
 }
 
+.cta-button:hover {
+  background-color: #b86a3a;
+}
+
 .mobile-menu-btn {
   display: none;
   background: none;
@@ -210,27 +219,152 @@ onMounted(() => {
   height: 3px;
   background-color: #CE7A49;
   border-radius: 2px;
+  transition: all 0.3s ease;
 }
 
-/* Back Nav */
-.back-nav {
-  padding: 2rem 0;
-  background-color: #f9f9f9;
+.main-content {
+  text-align: left;
 }
 
+/* Container */
 .container {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 4rem 2rem;
 }
 
+/* Profile Header */
+.profile-header {
+  display: flex;
+  gap: 6rem;
+  margin-bottom: 5rem;
+  align-items: flex-start;
+}
+
+.photo-column {
+  width: 380px;
+  flex-shrink: 0;
+}
+
+.member-photo-large {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.info-column {
+  flex: 1;
+  padding-top: 2rem;
+}
+
+.category-label {
+  color: #CE7A49;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.member-name-main {
+  font-size: 3.2rem;
+  margin: 0 0 0.2rem 0;
+  font-weight: 700;
+  color: #333;
+}
+
+.english-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: #888;
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.05em;
+}
+
+.bio-paragraphs {
+  font-size: 1.05rem;
+  line-height: 2;
+  color: #444;
+}
+
+.bio-paragraphs p {
+  margin-bottom: 1.5rem;
+}
+
+/* Profile Details */
+.profile-details {
+  display: flex;
+  gap: 6rem;
+}
+
+.specialties-column {
+  width: 380px;
+  flex-shrink: 0;
+}
+
+.lists-column {
+  flex: 1;
+}
+
+.deco-title {
+  font-size: 1.1rem;
+  color: #CE7A49;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+.deco-title::before {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background-color: #CE7A49;
+}
+
+/* Specialty Tags */
+.specialty-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.spec-tag {
+  background-color: #f5f5f5;
+  color: #666;
+  padding: 0.5rem 1.2rem;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  min-width: 90px;
+  text-align: center;
+}
+
+/* Info Lists */
+.list-block {
+  margin-bottom: 4rem;
+}
+
+.info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.info-list li {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 0.8rem;
+}
+
+/* Back Button */
 .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
   color: #888;
   text-decoration: none;
   font-size: 0.95rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  margin-bottom: 3rem;
   transition: color 0.3s ease;
 }
 
@@ -238,215 +372,88 @@ onMounted(() => {
   color: #CE7A49;
 }
 
-/* Hero Section */
-.member-hero {
-  padding: 4rem 0;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #eee;
+.back-link .arrow {
+  transition: transform 0.3s ease;
 }
 
-.hero-flex {
-  display: flex;
-  gap: 5rem;
-  align-items: center;
+.back-link:hover .arrow {
+  transform: translateX(-5px);
 }
 
-.hero-image-box {
-  position: relative;
-  width: 350px;
-  flex-shrink: 0;
-}
-
-.hero-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  z-index: 2;
-  position: relative;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-}
-
-.image-accent {
-  position: absolute;
-  top: -20px;
-  left: -20px;
-  width: 100px;
-  height: 100px;
-  border-top: 3px solid #CE7A49;
-  border-left: 3px solid #CE7A49;
-  z-index: 1;
-}
-
-.hero-info {
-  flex: 1;
-}
-
-.member-category {
-  color: #CE7A49;
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  margin-bottom: 1rem;
-}
-
-.member-name {
-  font-size: 3rem;
-  color: #333;
-  margin: 0 0 0.5rem 0;
-  font-weight: 700;
-}
-
-.member-title-full {
-  font-size: 1.4rem;
-  color: #666;
-  margin: 0 0 2rem 0;
-  font-weight: 500;
-}
-
-.hero-divider {
-  width: 60px;
-  height: 2px;
-  background-color: #CE7A49;
-  margin-bottom: 2rem;
-}
-
-.member-quote {
-  font-size: 1.2rem;
-  line-height: 1.8;
-  color: #555;
-  font-style: italic;
-  max-width: 500px;
-}
-
-/* Content Sections */
-.member-content {
-  padding: 5rem 0;
-}
-
-.content-grid {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 6rem;
-}
-
-.section-title {
-  font-size: 1.8rem;
-  color: #333;
-  margin-bottom: 2rem;
-  position: relative;
-  padding-bottom: 0.8rem;
-}
-
-.section-title::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 30px;
-  height: 2px;
-  background-color: #CE7A49;
-}
-
-.bio-text {
-  font-size: 1.1rem;
-  line-height: 2;
-  color: #555;
-  text-align: justify;
-}
-
-.detail-block {
-  margin-bottom: 3rem;
-}
-
-.detail-title {
-  font-size: 1.2rem;
-  color: #333;
-  margin-bottom: 1.2rem;
-  font-weight: 600;
-  border-left: 3px solid #CE7A49;
-  padding-left: 1rem;
-}
-
-.detail-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.detail-list li {
-  font-size: 1rem;
-  color: #666;
-  margin-bottom: 0.8rem;
-  padding-left: 1.2rem;
-  position: relative;
-}
-
-.detail-list li::before {
-  content: '•';
-  position: absolute;
-  left: 0;
-  color: #CE7A49;
-}
-
-.specialty-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.8rem;
-}
-
-.tag {
-  background-color: #f0f0f0;
-  color: #555;
-  padding: 0.4rem 1rem;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-}
-
-.tag:hover {
-  background-color: #CE7A49;
-  color: #fff;
-}
-
-.footer-spacer {
-  height: 100px;
-}
-
-/* Responsive */
+/* Mobile Responsive */
 @media (max-width: 992px) {
-  .hero-flex {
+  .profile-header, .profile-details {
     flex-direction: column;
     gap: 3rem;
-    text-align: center;
   }
   
-  .hero-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .photo-column, .specialties-column {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
   }
   
-  .content-grid {
-    grid-template-columns: 1fr;
-    gap: 4rem;
+  .info-column {
+    padding-top: 0;
+    text-align: left;
   }
   
+  .member-name-main {
+    font-size: 2.5rem;
+  }
+  
+  .bio-paragraphs {
+    text-align: left;
+  }
+  
+  .deco-title {
+    justify-content: flex-start;
+  }
+  
+  .specialty-grid {
+    justify-content: flex-start;
+  }
+  
+  .info-list {
+    text-align: left;
+  }
+
   .desktop-menu {
     display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: #34324E;
+    flex-direction: column;
+    padding: 1.5rem 0 2rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
   }
-  
+
+  .desktop-menu.is-open {
+    display: flex;
+  }
+
+  .navbar-menu {
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
   .mobile-menu-btn {
     display: flex;
   }
 }
 
-@media (max-width: 768px) {
-  .member-name {
-    font-size: 2.5rem;
+@media (max-width: 576px) {
+  .navbar-content {
+    padding: 0 1rem;
   }
   
-  .hero-image-box {
-    width: 280px;
+  .navbar-logo {
+    height: 40px;
   }
 }
 </style>
