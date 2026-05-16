@@ -10,7 +10,7 @@
         
         <div class="desktop-menu" :class="{ 'is-open': isMenuOpen }">
           <ul class="navbar-menu">
-            <li><router-link to="/member" class="navbar-link">以諾團隊</router-link></li>
+            <li><router-link to="/member" class="navbar-link" :class="{ 'router-link-active': $route.path.startsWith('/member') }">以諾團隊</router-link></li>
             <li><a href="#" class="navbar-link">法律專欄</a></li>
             <li><a href="#" class="navbar-link">勝訴案例</a></li>
             <li><a href="#" class="navbar-link">時事影音</a></li>
@@ -58,89 +58,55 @@
       </aside>
       
       <main class="team-content">
-        <!-- 所長區塊 -->
-        <div class="member-section" :ref="el => { if (el) sectionRefs[0] = el }" id="section-0">
+        <!-- 動態渲染成員區塊 -->
+        <div v-for="(tab, categoryIndex) in tabs" 
+             :key="tab" 
+             class="member-section" 
+             :ref="el => { if (el) sectionRefs[categoryIndex] = el }" 
+             :id="`section-${categoryIndex}`">
+          
           <div class="member-list">
-            <div class="member-card">
-              <div class="member-photo">
-                <img src="/images/ton-boss.png" alt="所長 童行" />
+            <!-- 所長區塊 (特殊版型) -->
+            <template v-if="tab === '所長'">
+              <div v-for="member in getMembersByCategory(tab)" 
+                   :key="member.id" 
+                   class="member-card clickable" 
+                   @click="goToDetail(member.id)">
+                <div class="member-photo">
+                  <img :src="member.image" :alt="`${member.title} ${member.name}`" />
+                </div>
+                <div class="member-info">
+                  <h4 class="member-title">{{ member.title }}</h4>
+                  <h2 class="member-name">{{ member.name }}</h2>
+                  <div class="member-divider"></div>
+                  <p class="member-quote" v-if="member.quote" v-html="member.quote.replace(/\n/g, '<br>')"></p>
+                </div>
               </div>
-              <div class="member-info">
-                <h4 class="member-title">所長</h4>
-                <h2 class="member-name">童行</h2>
-                <div class="member-divider"></div>
-                <p class="member-quote">
-                  法律難關往往伴隨情緒焦慮；<br>
-                  我們不只爭取權益，更致力於為你找回心中的平靜。
-                </p>
-              </div>
-            </div>
-            <div class="card-bottom-line"></div>
-          </div>
-        </div>
+            </template>
 
-        <!-- 主任律師區塊 -->
-        <div class="member-section" :ref="el => { if (el) sectionRefs[1] = el }" id="section-1">
-          <div class="member-list">
-            <div class="member-grid">
-              <div class="member-grid-card">
-                <div class="member-photo-square">
-                  <img src="/images/big-lawyer001.png" alt="主任律師 林士為" />
-                </div>
-                <div class="member-grid-info">
-                  <h4 class="member-title">主任律師</h4>
-                  <h2 class="member-name">林士為</h2>
-                </div>
-              </div>
-              
-              <div class="member-grid-card">
-                <div class="member-photo-square">
-                  <img src="/images/big-lawyer002.png" alt="主任律師 黃俊凱" />
-                </div>
-                <div class="member-grid-info">
-                  <h4 class="member-title">主任律師</h4>
-                  <h2 class="member-name">黃俊凱</h2>
+            <!-- 其他成員區塊 (網格版型) -->
+            <template v-else>
+              <div v-if="getMembersByCategory(tab).length > 0" class="member-grid">
+                <div v-for="member in getMembersByCategory(tab)" 
+                     :key="member.id" 
+                     class="member-grid-card clickable" 
+                     @click="goToDetail(member.id)">
+                  <div class="member-photo-square">
+                    <img :src="member.image" :alt="`${member.title} ${member.name}`" />
+                  </div>
+                  <div class="member-grid-info">
+                    <h4 class="member-title">{{ member.title }}</h4>
+                    <h2 class="member-name">{{ member.name }}</h2>
+                  </div>
                 </div>
               </div>
-              
-              <div class="member-grid-card">
-                <div class="member-photo-square">
-                  <img src="/images/big-lawyer003.png" alt="主任律師 徐子評" />
-                </div>
-                <div class="member-grid-info">
-                  <h4 class="member-title">主任律師</h4>
-                  <h2 class="member-name">徐子評</h2>
-                </div>
+              <div v-else class="placeholder-section">
+                <h4 class="member-title">{{ tab }}</h4>
+                <p style="color: #999;">內容建置中...</p>
               </div>
-            </div>
+            </template>
+            
             <div class="card-bottom-line"></div>
-          </div>
-        </div>
-        
-        <!-- 律師區塊佔位 -->
-        <div class="member-section" :ref="el => { if (el) sectionRefs[2] = el }" id="section-2">
-          <div class="member-list placeholder-section">
-             <h4 class="member-title">律師</h4>
-             <p style="color: #999;">內容建置中...</p>
-             <div class="card-bottom-line"></div>
-          </div>
-        </div>
-        
-        <!-- 法務顧問區塊佔位 -->
-        <div class="member-section" :ref="el => { if (el) sectionRefs[3] = el }" id="section-3">
-          <div class="member-list placeholder-section">
-             <h4 class="member-title">法務顧問</h4>
-             <p style="color: #999;">內容建置中...</p>
-             <div class="card-bottom-line"></div>
-          </div>
-        </div>
-        
-        <!-- 美國紐約律師區塊佔位 -->
-        <div class="member-section" :ref="el => { if (el) sectionRefs[4] = el }" id="section-4">
-          <div class="member-list placeholder-section">
-             <h4 class="member-title">美國紐約律師</h4>
-             <p style="color: #999;">內容建置中...</p>
-             <div class="card-bottom-line"></div>
           </div>
         </div>
       </main>
@@ -151,6 +117,10 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, nextTick } from 'vue';
+import { useRouter } from 'vue-router';
+import { teamMembers } from '../data/members';
+
+const router = useRouter();
 
 const isMenuOpen = ref(false);
 
@@ -163,7 +133,15 @@ const sectionRefs = ref([]);
 const tabListRef = ref(null);
 const indicatorLeft = ref(0);
 const indicatorWidth = ref(0);
-const isScrolling = ref(false); // 避免點擊滾動時觸發 Observer
+const isScrolling = ref(false);
+
+const getMembersByCategory = (category) => {
+  return teamMembers.filter(m => m.category === category);
+};
+
+const goToDetail = (id) => {
+  router.push(`/member/${id}`);
+};
 
 // 拖曳捲動相關變數
 const isDragging = ref(false);
@@ -733,6 +711,16 @@ onUnmounted(() => {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+}
+
+.clickable {
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.clickable:hover {
+  transform: translateY(-5px);
+  opacity: 0.9;
 }
 
 .member-photo-square {

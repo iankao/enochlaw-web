@@ -12,6 +12,12 @@ const routes = [
     path: '/member',
     name: 'Member',
     component: EnochMemberView,
+  },
+  {
+    path: '/member/:id',
+    name: 'MemberDetail',
+    component: () => import('../views/MemberDetailView.vue'),
+    props: true
   }
 ]
 
