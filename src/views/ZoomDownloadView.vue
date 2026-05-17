@@ -365,8 +365,8 @@ const isMenuOpen = ref(false);
 }
 
 .zoom-qr-wrapper {
-  width: 170px;
-  height: 170px;
+  width: 200px;
+  height: 200px;
   border: 1px solid #f0f0f0;
   border-radius: 12px;
   padding: 0.8rem;
@@ -386,20 +386,20 @@ const isMenuOpen = ref(false);
 }
 
 .zoom-download-btn {
-  width: 100%;
+  width: 200px;
   background-color: #34324E;
   color: #ffffff;
   border: none;
-  padding: 1rem 1.5rem;
+  padding: 0.9rem 1rem;
   border-radius: 8px;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem;
+  gap: 0.6rem;
   text-decoration: none;
   box-shadow: 0 4px 12px rgba(52, 50, 78, 0.15);
 }
