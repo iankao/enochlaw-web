@@ -77,10 +77,7 @@
       <!-- Card 2: Android -->
       <div class="zoom-card">
         <div class="zoom-icon-circle">
-          <!-- Android SVG Icon -->
-          <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor">
-            <path d="M6 18c0 .55.45 1 1 1h1v3c0 .55.45 1 1 1s1-.45 1-1v-3h4v3c0 .55.45 1 1 1s1-.45 1-1v-3h1c.55 0 1-.45 1-1V9H6v9zm13-11h-2.58l1.62-2.28c.18-.25.13-.59-.12-.76-.25-.17-.59-.12-.76.13L15.3 6.64C14.34 6.22 13.23 6 12 6c-1.23 0-2.34.22-3.3.64L6.86 4.09c-.17-.25-.51-.3-.76-.13-.25.17-.3.51-.12.76L7.58 7H5c-1.1 0-2 .9-2 2v6c0 .55.45 1 1 1h1V9h14v7c0 .55.45 1 1 1s1-.45 1-1V9c0-1.1-.9-2-2-2zM9 11.5c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1zm6 0c-.55 0-1-.45-1-1s.45-1 1-1 1 .45 1 1-.45 1-1 1z"/>
-          </svg>
+          <img src="/images/download-android-icon.png" alt="Android Icon" class="zoom-icon-img zoom-icon-android" />
         </div>
         <h2 class="zoom-card-title">Android下載</h2>
         <p class="zoom-card-subtitle">適用於各品牌安卓手機</p>
@@ -100,10 +97,7 @@
       <!-- Card 3: PC -->
       <div class="zoom-card">
         <div class="zoom-icon-circle">
-          <!-- Laptop SVG Icon -->
-          <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor">
-            <path d="M20 18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z" />
-          </svg>
+          <img src="/images/download-pc-icon.png" alt="PC Icon" class="zoom-icon-img" />
         </div>
         <h2 class="zoom-card-title">電腦版下載</h2>
         <p class="zoom-card-subtitle">適用於 Windows 與 macOS</p>
@@ -348,6 +342,24 @@ const isMenuOpen = ref(false);
   justify-content: center;
   margin-bottom: 2rem;
   color: #ffffff;
+}
+
+.zoom-icon-circle svg {
+  width: 52px;
+  height: 52px;
+  display: block;
+}
+
+.zoom-icon-img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+  display: block;
+}
+
+.zoom-icon-android {
+  width: 75px;
+  height: 75px;
 }
 
 .zoom-card-title {
