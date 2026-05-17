@@ -27,11 +27,11 @@
       </div>
       <ul class="navbar-menu">
         <li><router-link to="/member" class="navbar-link">以諾團隊</router-link></li>
-        <li><a href="#" class="navbar-link">法律專欄</a></li>
+        <li><router-link to="/insights" class="navbar-link">法律專欄</router-link></li>
         <li><a href="#" class="navbar-link">勝訴案例</a></li>
         <li><a href="#" class="navbar-link">時事影音</a></li>
         <li><a href="#" class="navbar-link">案件查詢</a></li>
-        <li><a href="#" class="navbar-link">下載zoom</a></li>
+        <li><router-link to="/zoom" class="navbar-link">下載zoom</router-link></li>
       </ul>
       <button class="cta-button">免費諮詢</button>
     </div>

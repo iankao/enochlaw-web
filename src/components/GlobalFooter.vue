@@ -171,11 +171,11 @@
           <div class="footer-nav-col">
             <p class="footer-nav-title">法律專欄</p>
             <ul>
-              <li><a href="#">全部法律知識</a></li>
-              <li><a href="#">刑事知識</a></li>
-              <li><a href="#">民事知識</a></li>
-              <li><a href="#">家事知識</a></li>
-              <li><a href="#">詐欺知識</a></li>
+              <li><router-link to="/insights">全部法律知識</router-link></li>
+              <li><router-link :to="{ path: '/insights', query: { tab: '刑事知識' } }">刑事知識</router-link></li>
+              <li><router-link :to="{ path: '/insights', query: { tab: '民事知識' } }">民事知識</router-link></li>
+              <li><router-link :to="{ path: '/insights', query: { tab: '家事知識' } }">家事知識</router-link></li>
+              <li><router-link :to="{ path: '/insights', query: { tab: '詐欺知識' } }">詐欺知識</router-link></li>
             </ul>
           </div>
           <div class="footer-nav-col">
@@ -207,9 +207,9 @@
           <div class="footer-nav-col">
             <p class="footer-nav-title">下載zoom</p>
             <ul>
-              <li><a href="#">IOS下載</a></li>
-              <li><a href="#">Androi下載</a></li>
-              <li><a href="#">電腦下載</a></li>
+              <li><router-link to="/zoom">IOS下載</router-link></li>
+              <li><router-link to="/zoom">Android下載</router-link></li>
+              <li><router-link to="/zoom">電腦下載</router-link></li>
             </ul>
           </div>
           <div class="footer-nav-col">
@@ -284,7 +284,7 @@ const selectedGender = ref('先生');
 <style scoped>
 .contact-section {
   padding: 6rem 2rem;
-  background-color: #F9F9F9;
+  background-color: #F5F5F5;
   text-align: center;
   font-family: 'Noto Serif TC', serif;
 }
@@ -467,7 +467,7 @@ const selectedGender = ref('先生');
 .consultation-section {
   padding: 0rem 2rem;
   padding-bottom: 4rem;
-  background-color: #F9F9F9;
+  background-color: #F5F5F5;
   font-family: 'Noto Serif TC', serif;
 }
 
@@ -1004,7 +1004,7 @@ const selectedGender = ref('先生');
 
 /* Copyright Bar */
 .copyright-bar {
-  background-color: #F9F9F9;
+  background-color: #F5F5F5;
   padding: 1.2rem 2rem;
   text-align: center;
   font-family: 'Noto Serif TC', serif;

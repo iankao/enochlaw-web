@@ -11,11 +11,11 @@
         <div class="desktop-menu" :class="{ 'is-open': isMenuOpen }">
           <ul class="navbar-menu">
             <li><router-link to="/member" class="navbar-link" :class="{ 'router-link-active': $route.path.startsWith('/member') }">以諾團隊</router-link></li>
-            <li><a href="#" class="navbar-link">法律專欄</a></li>
+            <li><router-link to="/insights" class="navbar-link">法律專欄</router-link></li>
             <li><a href="#" class="navbar-link">勝訴案例</a></li>
             <li><a href="#" class="navbar-link">時事影音</a></li>
             <li><a href="#" class="navbar-link">案件查詢</a></li>
-            <li><a href="#" class="navbar-link">下載zoom</a></li>
+            <li><router-link to="/zoom" class="navbar-link">下載zoom</router-link></li>
           </ul>
           <button class="cta-button">免費諮詢</button>
         </div>
@@ -469,7 +469,7 @@ onUnmounted(() => {
 .team-container {
   display: flex;
   max-width: 1200px;
-  margin: 4rem auto;
+  margin: 4rem auto 0;
   padding: 0 2rem;
   gap: 4rem;
   align-items: flex-start; /* 讓 Sidebar 可以有 sticky 效果 */
@@ -554,7 +554,7 @@ onUnmounted(() => {
 @media (max-width: 768px) {
   .team-container {
     flex-direction: column;
-    margin: 2rem auto;
+    margin: 2rem auto 0;
     gap: 2rem;
   }
   
@@ -711,6 +711,10 @@ onUnmounted(() => {
   background-color: #eee;
   margin-top: 1.5rem; /* 配合 flex gap: 2rem，上方視覺總間距為 3.5rem */
   margin-bottom: 3.5rem; /* 下方間距 3.5rem，達成視覺平衡 */
+}
+
+.member-section:last-child .card-bottom-line {
+  display: none;
 }
 
 /* 網格卡片樣式 (主任律師等) */
