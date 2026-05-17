@@ -119,6 +119,7 @@
 import { ref, onMounted, onUnmounted, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import { teamMembers } from '../data/members';
+import { getMembers } from '@/api/member';
 
 const router = useRouter();
 
@@ -135,8 +136,10 @@ const indicatorLeft = ref(0);
 const indicatorWidth = ref(0);
 const isScrolling = ref(false);
 
+const currentMembers = ref([...teamMembers]);
+
 const getMembersByCategory = (category) => {
-  return teamMembers.filter(m => m.category === category);
+  return currentMembers.value.filter(m => m.category === category);
 };
 
 const goToDetail = (id) => {
@@ -208,7 +211,17 @@ const handleResize = () => {
   updateMobileIndicator(activeIndex.value);
 };
 
-onMounted(() => {
+onMounted(async () => {
+  try {
+    const res = await getMembers();
+    const apiData = Array.isArray(res) ? res : (res.data || res.results || []);
+    if (apiData.length > 0) {
+      currentMembers.value = apiData;
+    }
+  } catch (error) {
+    console.error('Failed to fetch members from API:', error);
+  }
+
   // 稍等 DOM 渲染完成後再計算
   setTimeout(() => {
     updateMobileIndicator(0);

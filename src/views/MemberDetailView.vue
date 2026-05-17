@@ -104,19 +104,35 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { teamMembers } from '../data/members';
+import { getMemberDetail } from '@/api/member';
 
 const route = useRoute();
 const isMenuOpen = ref(false);
 
-const member = computed(() => {
-  return teamMembers.find(m => m.id === route.params.id);
-});
+const member = ref(null);
 
-onMounted(() => {
+onMounted(async () => {
   window.scrollTo(0, 0);
+
+  // Fallback: Initial load from static data
+  const localMember = teamMembers.find(m => m.id === route.params.id);
+  if (localMember) {
+    member.value = localMember;
+  }
+
+  // Fetch fresh data from API
+  try {
+    const res = await getMemberDetail(route.params.id);
+    const apiMember = res.data || res;
+    if (apiMember && Object.keys(apiMember).length > 0) {
+      member.value = apiMember;
+    }
+  } catch (error) {
+    console.error('Failed to fetch member detail from API:', error);
+  }
 });
 </script>
 
