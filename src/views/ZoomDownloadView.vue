@@ -358,8 +358,8 @@ const isMenuOpen = ref(false);
 }
 
 .zoom-icon-android {
-  width: 75px;
-  height: 75px;
+  width: 54px;
+  height: 54px;
 }
 
 .zoom-card-title {
