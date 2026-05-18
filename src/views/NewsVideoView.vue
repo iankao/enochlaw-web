@@ -869,25 +869,21 @@ onMounted(() => {
   }
   
   .filters-container {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     gap: 0.6rem;
-    width: 100%;
-    max-width: 480px;
+    max-width: 360px; /* Forces wrap after 3 items */
     margin: 0 auto;
   }
   
   .filter-btn {
-    padding: 0.65rem 0.4rem;
-    font-size: 0.9rem;
-    min-width: 0;
-    width: 100%;
-    grid-column: span 2;
-  }
-  
-  .filter-btn:nth-child(4),
-  .filter-btn:nth-child(5) {
-    grid-column: span 3;
+    padding: 0.6rem 0.5rem;
+    font-size: 0.95rem;
+    width: 100px; /* Keep exact same width for all buttons */
+    min-width: 100px;
+    text-align: center;
+    box-sizing: border-box;
   }
   
   .videos-main-container {
