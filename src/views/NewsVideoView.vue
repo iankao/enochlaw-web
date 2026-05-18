@@ -1,6 +1,6 @@
 <template>
-  <div class="cases-page">
-    <!-- Navbar (與 EnochMemberView/LegalInsightsView 保持一致) -->
+  <div class="video-page">
+    <!-- Navbar (與 SuccessfulCasesView/EnochMemberView/LegalInsightsView 保持一致) -->
     <nav class="navbar-dark">
       <div class="navbar-content">
         <div class="navbar-brand">
@@ -34,18 +34,18 @@
       <div class="breadcrumb-inner">
         <router-link to="/" class="breadcrumb-link">首頁</router-link>
         <span class="breadcrumb-separator"> / </span>
-        <span class="breadcrumb-active">勝訴案例</span>
+        <span class="breadcrumb-active">時事影音</span>
       </div>
     </div>
 
     <!-- Header Section -->
-    <header class="cases-header">
-      <p class="cases-subtitle">Success Story</p>
-      <h1 class="cases-title">勝訴案例</h1>
-      <div class="cases-divider"></div>
+    <header class="videos-header">
+      <p class="videos-subtitle">Legal Explainer Videos</p>
+      <h1 class="videos-title">時事影音</h1>
+      <div class="videos-divider"></div>
     </header>
 
-    <!-- Category Filters Section (如設計圖) -->
+    <!-- Category Filters Section -->
     <section class="filters-section">
       <div class="filters-container">
         <button v-for="tab in tabs" :key="tab"
@@ -57,34 +57,52 @@
       </div>
     </section>
 
-    <!-- Cases Content Section -->
-    <main class="cases-main-container">
-      <div class="cases-grid">
-        <div v-for="item in paginatedCases" :key="item.id" class="case-card">
-          <div class="case-image-box">
-            <img :src="item.image" :alt="item.title" class="case-img" />
-            <div class="case-tag">{{ item.category }}</div>
-          </div>
-          <div class="case-info">
-            <div class="case-meta">
-              <span class="case-date">{{ item.date }}</span>
-              <span class="case-result-badge">{{ item.result.split('，')[0] }}</span>
+    <!-- Videos Content Section -->
+    <main class="videos-main-container">
+      <div class="videos-grid">
+        <div v-for="item in paginatedVideos" :key="item.id" class="video-card" @click="openVideo(item)">
+          <!-- 9:16 Aspect Ratio cover box -->
+          <div class="video-cover-box">
+            <img :src="item.coverImage" :alt="item.title" class="video-img" />
+            <div class="video-cover-gradient"></div>
+            
+            <!-- Firm Top Logo Overlay -->
+            <div class="video-cover-logo">
+              <img src="/images/enoch-logo-white.png" alt="Enoch Law" class="cover-logo-img" />
             </div>
-            <h2 class="case-card-title">{{ item.title }}</h2>
-            <p class="case-excerpt">{{ item.excerpt }}</p>
-            <button class="case-action-btn" @click="openModal(item)">
-              閱讀完整策略與結果 <span class="arrow">→</span>
-            </button>
+
+            <!-- Video Center Caption Overlay -->
+            <div class="video-cover-caption">
+              <span class="caption-text">{{ item.textOverlay }}</span>
+            </div>
+
+            <!-- Hover Play Button overlay -->
+            <div class="video-play-overlay">
+              <div class="play-circle">
+                <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Meta & Title Panel -->
+          <div class="video-info-box">
+            <div class="video-meta">
+              <span class="video-date">{{ item.date }}</span>
+              <span class="video-category-tag">{{ item.category }}</span>
+            </div>
+            <h2 class="video-card-title">{{ item.title }}</h2>
           </div>
         </div>
         
-        <div v-if="filteredCases.length === 0" class="placeholder-section">
+        <div v-if="filteredVideos.length === 0" class="placeholder-section">
           <p style="color: #999;">內容建置中...</p>
         </div>
       </div>
 
       <!-- Pagination -->
-      <div class="pagination-container" v-if="filteredCases.length > 0">
+      <div class="pagination-container" v-if="filteredVideos.length > 0">
         <button class="page-arrow" :disabled="currentPage === 1" @click="changePage(currentPage - 1)">&lt;</button>
         
         <button v-for="page in displayTotalPages" :key="page"
@@ -98,42 +116,27 @@
       </div>
     </main>
 
-    <!-- Case Detail Modal -->
+    <!-- Glassmorphic Video Lightbox Modal -->
     <Transition name="modal-fade">
-      <div class="case-modal-overlay" v-if="selectedCase" @click.self="closeModal">
-        <div class="case-modal-content">
-          <button class="modal-close-btn" @click="closeModal">&times;</button>
+      <div class="video-modal-overlay" v-if="selectedVideo" @click.self="closeVideo">
+        <div class="video-modal-content">
+          <button class="modal-close-btn" @click="closeVideo">&times;</button>
           
-          <div class="modal-header">
-            <span class="modal-tag">{{ selectedCase.category }}</span>
-            <span class="modal-date">{{ selectedCase.date }}</span>
-            <h2 class="modal-title">{{ selectedCase.title }}</h2>
-          </div>
-          
-          <div class="modal-body">
-            <div class="modal-section result-section">
-              <h3 class="section-title">勝訴結果</h3>
-              <div class="result-box">
-                <svg class="success-icon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                </svg>
-                <p class="result-text">{{ selectedCase.result }}</p>
-              </div>
-            </div>
-            
-            <div class="modal-section">
-              <h3 class="section-title">案情簡介</h3>
-              <p class="section-content">{{ selectedCase.excerpt }}</p>
-            </div>
-            
-            <div class="modal-section strategy-section">
-              <h3 class="section-title">以諾專業策略與答辯</h3>
-              <p class="section-content">{{ selectedCase.strategy }}</p>
-            </div>
+          <!-- Portrait 9:16 YouTube Shorts Iframe Wrapper -->
+          <div class="video-player-wrapper">
+            <iframe 
+              :src="embedUrl" 
+              title="YouTube video player" 
+              frameborder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              allowfullscreen>
+            </iframe>
           </div>
 
-          <div class="modal-footer">
-            <button class="modal-action-btn" @click="closeModal">關閉視窗</button>
+          <!-- Lightbox Bottom Caption Info -->
+          <div class="modal-video-info">
+            <span class="modal-video-tag">{{ selectedVideo.category }}</span>
+            <h3 class="modal-video-title">{{ selectedVideo.title }}</h3>
           </div>
         </div>
       </div>
@@ -142,42 +145,50 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch, nextTick } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { mockCases } from '../data/cases';
+import { mockVideos } from '../data/videos';
 
 const route = useRoute();
 const isMenuOpen = ref(false);
 
-const tabs = ['全部案例', '刑事案例', '民事案例', '家事案例', '詐欺案例'];
-const activeTab = ref('全部案例');
+const tabs = ['全部影音', '刑事案例', '民事案例', '家事案例', '詐欺案例'];
+const activeTab = ref('全部影音');
 
 // Pagination Setup
 const currentPage = ref(1);
-const pageSize = 6;
+const pageSize = 8; // 8 items for a beautiful 2-row grid of 4 columns
 
 // Modal Setup
-const selectedCase = ref(null);
+const selectedVideo = ref(null);
 
-const filteredCases = computed(() => {
-  if (activeTab.value === '全部案例') {
-    return mockCases;
+const filteredVideos = computed(() => {
+  if (activeTab.value === '全部影音') {
+    return mockVideos;
   }
-  return mockCases.filter(c => c.category === activeTab.value);
+  // Map standard video categories to corresponding data tag
+  return mockVideos.filter(v => v.category === activeTab.value);
 });
 
 const totalPages = computed(() => {
-  return Math.ceil(filteredCases.value.length / pageSize);
+  return Math.ceil(filteredVideos.value.length / pageSize);
 });
 
 const displayTotalPages = computed(() => {
   return Math.max(1, totalPages.value);
 });
 
-const paginatedCases = computed(() => {
+const paginatedVideos = computed(() => {
   const start = (currentPage.value - 1) * pageSize;
   const end = start + pageSize;
-  return filteredCases.value.slice(start, end);
+  return filteredVideos.value.slice(start, end);
+});
+
+const embedUrl = computed(() => {
+  if (!selectedVideo.value) return '';
+  // Convert standard shorts/videos to autoplaying embed url
+  const id = selectedVideo.value.youtubeId;
+  return `https://www.youtube.com/embed/${id}?autoplay=1&mute=0&rel=0&modestbranding=1&controls=1&showinfo=0`;
 });
 
 const selectTab = (tab) => {
@@ -196,22 +207,22 @@ const changePage = (page) => {
   }
 };
 
-const openModal = (item) => {
-  selectedCase.value = item;
+const openVideo = (item) => {
+  selectedVideo.value = item;
   document.body.style.overflow = 'hidden';
 };
 
-const closeModal = () => {
-  selectedCase.value = null;
+const closeVideo = () => {
+  selectedVideo.value = null;
   document.body.style.overflow = '';
 };
 
-// Watch query parameters to sync category selection
+// Sync tab with query parameters if present
 watch(() => route.query.tab, (newTab) => {
   if (newTab && tabs.includes(newTab)) {
     activeTab.value = newTab;
   } else {
-    activeTab.value = '全部案例';
+    activeTab.value = '全部影音';
   }
   currentPage.value = 1;
 });
@@ -227,7 +238,7 @@ onMounted(() => {
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700&family=Noto+Serif+TC:wght@400;500;600;700&family=Playfair+Display:wght@500;700&display=swap');
 
-.cases-page {
+.video-page {
   font-family: 'Noto Serif TC', serif;
   min-height: 100vh;
   background-color: #ffffff;
@@ -360,13 +371,13 @@ onMounted(() => {
 }
 
 /* Page Header */
-.cases-header {
+.videos-header {
   text-align: center;
   margin-top: 2rem;
   margin-bottom: 3rem;
 }
 
-.cases-subtitle {
+.videos-subtitle {
   color: #CE7A49;
   font-family: 'Playfair Display', serif;
   font-size: 1.1rem;
@@ -376,7 +387,7 @@ onMounted(() => {
   text-transform: uppercase;
 }
 
-.cases-title {
+.videos-title {
   color: #34324E;
   font-size: 2.25rem;
   font-weight: 700;
@@ -384,14 +395,14 @@ onMounted(() => {
   letter-spacing: 0.05em;
 }
 
-.cases-divider {
+.videos-divider {
   width: 40px;
   height: 2px;
   background-color: #CE7A49;
   margin: 1.25rem auto 0;
 }
 
-/* Filters Section (如設計圖) */
+/* Filters Section */
 .filters-section {
   display: flex;
   justify-content: center;
@@ -430,154 +441,203 @@ onMounted(() => {
   color: #ffffff;
 }
 
-/* Cases Grid Layout */
-.cases-main-container {
+/* Videos Grid Layout (4 columns like shorts gallery) */
+.videos-main-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 2rem;
 }
 
-.cases-grid {
+.videos-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
 }
 
-.case-card {
+.video-card {
   background-color: #ffffff;
   border: 1px solid #eaeaea;
-  border-radius: 8px;
+  border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
 }
 
-.case-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  border-color: rgba(206, 122, 73, 0.25);
+.video-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+  border-color: rgba(206, 122, 73, 0.3);
 }
 
-.case-image-box {
+/* 9:16 aspect ratio box */
+.video-cover-box {
   width: 100%;
-  height: 200px;
+  aspect-ratio: 9 / 16;
   position: relative;
   overflow: hidden;
-  background-color: #f7f7f7;
+  background-color: #1a1a2e;
 }
 
-.case-img {
+.video-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.case-card:hover .case-img {
-  transform: scale(1.04);
+.video-card:hover .video-img {
+  transform: scale(1.06);
 }
 
-.case-tag {
+.video-cover-gradient {
   position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background-color: #CE7A49;
-  color: #ffffff;
-  padding: 0.3rem 0.8rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  border-radius: 4px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.1) 40%,
+    rgba(0, 0, 0, 0.5) 75%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  z-index: 1;
 }
 
-.case-info {
-  padding: 1.75rem;
+/* Top Branding on Video Cover */
+.video-cover-logo {
+  position: absolute;
+  top: 1.25rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+.cover-logo-img {
+  height: 24px;
+  width: auto;
+}
+
+/* Big Video Caption in Middle-Bottom */
+.video-cover-caption {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1rem;
+  right: 1rem;
+  z-index: 2;
+  text-align: center;
+  pointer-events: none;
+}
+
+.caption-text {
+  color: #ffffff;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6), 0 0 10px rgba(0, 0, 0, 0.3);
+  display: inline-block;
+  font-family: 'Noto Sans TC', sans-serif;
+  word-break: keep-all;
+}
+
+/* Hover Play Button */
+.video-play-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background-color: rgba(52, 50, 78, 0.15);
+}
+
+.video-card:hover .video-play-overlay {
+  opacity: 1;
+}
+
+.play-circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: rgba(206, 122, 73, 0.9);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform: scale(0.85);
+}
+
+.video-card:hover .play-circle {
+  transform: scale(1);
+}
+
+.play-circle svg {
+  margin-left: 2px;
+}
+
+/* Bottom metadata panel */
+.video-info-box {
+  padding: 1.25rem;
   display: flex;
   flex-direction: column;
-  flex: 1;
   text-align: left;
 }
 
-.case-meta {
+.video-meta {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.6rem;
 }
 
-.case-date {
+.video-date {
   color: #888;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-family: 'Playfair Display', serif;
 }
 
-.case-result-badge {
+.video-category-tag {
   color: #CE7A49;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   background-color: #FDF5F0;
-  padding: 0.2rem 0.6rem;
+  padding: 0.15rem 0.5rem;
   border-radius: 4px;
 }
 
-.case-card-title {
+.video-card-title {
   color: #34324E;
-  font-size: 1.25rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  margin: 0 0 1rem 0;
-  line-height: 1.4;
-  height: 3.5rem; /* Allow 2 lines */
+  margin: 0;
+  line-height: 1.45;
+  height: 2.9rem; /* Allow 2 lines */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-.case-excerpt {
-  color: #666;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin: 0 0 1.5rem 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  flex: 1;
-  text-align: justify;
-}
-
-.case-action-btn {
-  background: transparent;
-  color: #CE7A49;
-  border: none;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0;
-  margin-top: auto;
-  align-self: flex-start;
-  transition: color 0.3s;
-}
-
-.case-action-btn:hover {
-  color: #34324E;
-}
-
-.case-action-btn .arrow {
-  transition: transform 0.3s;
-}
-
-.case-action-btn:hover .arrow {
-  transform: translateX(4px);
+  font-family: 'Noto Sans TC', sans-serif;
 }
 
 .placeholder-section {
-  grid-column: span 3;
+  grid-column: span 4;
   padding: 6rem 0;
   text-align: center;
 }
@@ -627,15 +687,15 @@ onMounted(() => {
   cursor: not-allowed;
 }
 
-/* Modal Popup Styles */
-.case-modal-overlay {
+/* Glassmorphic Lightbox Modal Styles */
+.video-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(52, 50, 78, 0.6);
-  backdrop-filter: blur(4px);
+  background-color: rgba(52, 50, 78, 0.7);
+  backdrop-filter: blur(8px);
   z-index: 200;
   display: flex;
   align-items: center;
@@ -643,26 +703,24 @@ onMounted(() => {
   padding: 2rem;
 }
 
-.case-modal-content {
+.video-modal-content {
   background-color: #ffffff;
-  border-radius: 12px;
+  border-radius: 16px;
   width: 100%;
-  max-width: 650px;
-  max-height: 85vh;
-  overflow-y: auto;
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.15);
+  max-width: 400px; /* Perfectly sized for a mobile screen width */
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
   position: relative;
   display: flex;
   flex-direction: column;
   animation: modal-enter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  padding: 3rem;
   box-sizing: border-box;
 }
 
 @keyframes modal-enter {
   from {
     opacity: 0;
-    transform: scale(0.95) translateY(15px);
+    transform: scale(0.92) translateY(20px);
   }
   to {
     opacity: 1;
@@ -672,12 +730,12 @@ onMounted(() => {
 
 .modal-close-btn {
   position: absolute;
-  top: 1.5rem;
-  right: 1.5rem;
-  background: transparent;
+  top: 1rem;
+  right: 1rem;
+  background: rgba(0, 0, 0, 0.5);
   border: none;
-  font-size: 2rem;
-  color: #888;
+  font-size: 1.5rem;
+  color: #fff;
   cursor: pointer;
   line-height: 1;
   padding: 0;
@@ -688,130 +746,53 @@ onMounted(() => {
   justify-content: center;
   border-radius: 50%;
   transition: all 0.2s;
+  z-index: 10;
 }
 
 .modal-close-btn:hover {
-  background-color: #f5f5f5;
-  color: #333;
+  background-color: rgba(206, 122, 73, 0.9);
+  transform: rotate(90deg);
 }
 
-.modal-header {
-  text-align: left;
-  border-bottom: 1px solid #f0f0f0;
-  padding-bottom: 1.5rem;
-  margin-bottom: 2rem;
+/* Responsive 9:16 Video Player Wrapper */
+.video-player-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  background-color: #000;
 }
 
-.modal-tag {
-  background-color: #FDF5F0;
-  color: #CE7A49;
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 0.3rem 0.8rem;
-  border-radius: 4px;
-  margin-right: 1rem;
+.video-player-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
-.modal-date {
-  color: #888;
-  font-size: 0.9rem;
-  font-family: 'Playfair Display', serif;
-}
-
-.modal-title {
-  color: #34324E;
-  font-size: 1.6rem;
-  font-weight: 700;
-  margin: 1.25rem 0 0 0;
-  line-height: 1.4;
-}
-
-.modal-body {
-  text-align: left;
-  overflow-y: auto;
-}
-
-.modal-section {
-  margin-bottom: 2rem;
-}
-
-.section-title {
-  color: #CE7A49;
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin: 0 0 0.8rem 0;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.section-title::before {
-  content: '';
-  width: 12px;
-  height: 2px;
-  background-color: #CE7A49;
-  display: inline-block;
-}
-
-.section-content {
-  color: #444;
-  font-size: 1rem;
-  line-height: 1.8;
-  margin: 0;
-  text-align: justify;
-}
-
-.result-box {
-  background-color: #FDF5F0;
-  border-left: 4px solid #CE7A49;
-  padding: 1.2rem 1.5rem;
-  border-radius: 0 8px 8px 0;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.8rem;
-}
-
-.success-icon {
-  color: #CE7A49;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.result-text {
-  color: #CE7A49;
-  font-weight: 700;
-  font-size: 1.05rem;
-  margin: 0;
-  line-height: 1.5;
-}
-
-.strategy-section .section-content {
-  background-color: #fafafa;
-  border: 1px solid #f0f0f0;
+.modal-video-info {
   padding: 1.5rem;
-  border-radius: 8px;
+  text-align: left;
+  background-color: #ffffff;
+  border-top: 1px solid #f0f0f0;
 }
 
-.modal-footer {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.modal-action-btn {
-  background-color: #34324E;
-  color: #ffffff;
-  border: none;
-  padding: 0.75rem 2rem;
-  font-size: 1rem;
+.modal-video-tag {
+  background-color: #FDF5F0;
+  color: #CE7A49;
+  font-size: 0.8rem;
   font-weight: 600;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
 }
 
-.modal-action-btn:hover {
-  background-color: #CE7A49;
+.modal-video-title {
+  color: #34324E;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0.75rem 0 0 0;
+  line-height: 1.4;
+  font-family: 'Noto Sans TC', sans-serif;
 }
 
 /* Modal Fade Animation */
@@ -825,11 +806,18 @@ onMounted(() => {
   opacity: 0;
 }
 
-/* Mobile Responsive */
-@media (max-width: 1024px) {
-  .cases-grid {
+/* Mobile Responsive styling */
+@media (max-width: 1200px) {
+  .videos-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 900px) {
+  .videos-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 2rem;
+    gap: 1.5rem;
   }
 }
 
@@ -871,7 +859,7 @@ onMounted(() => {
     padding: 0 1.5rem;
   }
   
-  .cases-header {
+  .videos-header {
     margin-bottom: 2rem;
   }
   
@@ -881,36 +869,62 @@ onMounted(() => {
   }
   
   .filters-container {
-    gap: 0.8rem;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.6rem;
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto;
   }
   
   .filter-btn {
-    padding: 0.6rem 1.2rem;
-    font-size: 0.95rem;
-    min-width: 100px;
+    padding: 0.65rem 0.4rem;
+    font-size: 0.9rem;
+    min-width: 0;
+    width: 100%;
+    grid-column: span 2;
   }
   
-  .cases-main-container {
+  .filter-btn:nth-child(4),
+  .filter-btn:nth-child(5) {
+    grid-column: span 3;
+  }
+  
+  .videos-main-container {
     padding: 0 1.5rem;
   }
   
-  .cases-grid {
+  .videos-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .caption-text {
+    font-size: 0.95rem;
+  }
+
+  .video-card-title {
+    font-size: 0.95rem;
+    height: 2.7rem;
+  }
+
+  .video-modal-content {
+    max-width: 320px;
+  }
+
+  .modal-video-title {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .videos-grid {
     grid-template-columns: 1fr;
-    gap: 2rem;
+    gap: 1.5rem;
   }
   
-  .case-card-title {
-    height: auto;
-    max-height: 3.5rem;
-  }
-  
-  .case-modal-content {
-    padding: 2rem 1.5rem;
-    max-height: 90vh;
-  }
-  
-  .modal-title {
-    font-size: 1.35rem;
+  .video-cover-box {
+    aspect-ratio: 9 / 16;
   }
 }
 </style>

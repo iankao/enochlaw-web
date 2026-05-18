@@ -14,7 +14,7 @@
             <li><router-link to="/member" class="navbar-link" :class="{ 'router-link-active': $route.path.startsWith('/member') }">以諾團隊</router-link></li>
             <li><router-link to="/insights" class="navbar-link">法律專欄</router-link></li>
             <li><router-link to="/cases" class="navbar-link" :class="{ 'router-link-active': $route.path.startsWith('/cases') }">勝訴案例</router-link></li>
-            <li><a href="#" class="navbar-link">時事影音</a></li>
+            <li><router-link to="/video" class="navbar-link" :class="{ 'router-link-active': $route.path.startsWith('/video') }">時事影音</router-link></li>
             <li><a href="#" class="navbar-link">案件查詢</a></li>
             <li><router-link to="/zoom" class="navbar-link">下載zoom</router-link></li>
           </ul>

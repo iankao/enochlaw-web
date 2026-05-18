@@ -4,6 +4,7 @@ import EnochMemberView from '../views/EnochMemberView.vue'
 import LegalInsightsView from '../views/LegalInsightsView.vue'
 import ZoomDownloadView from '../views/ZoomDownloadView.vue'
 import SuccessfulCasesView from '../views/SuccessfulCasesView.vue'
+import NewsVideoView from '../views/NewsVideoView.vue'
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: '/cases',
     name: 'SuccessfulCases',
     component: SuccessfulCasesView
+  },
+  {
+    path: '/video',
+    name: 'NewsVideo',
+    component: NewsVideoView
   }
 ]
 
