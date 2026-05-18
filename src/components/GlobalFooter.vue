@@ -181,11 +181,11 @@
           <div class="footer-nav-col">
             <p class="footer-nav-title">勝訴案例</p>
             <ul>
-              <li><a href="#">全部勝訴案例</a></li>
-              <li><a href="#">刑事案例</a></li>
-              <li><a href="#">民事案例</a></li>
-              <li><a href="#">家事案例</a></li>
-              <li><a href="#">詐欺案例</a></li>
+              <li><router-link to="/cases">全部勝訴案例</router-link></li>
+              <li><router-link :to="{ path: '/cases', query: { tab: '刑事案例' } }">刑事案例</router-link></li>
+              <li><router-link :to="{ path: '/cases', query: { tab: '民事案例' } }">民事案例</router-link></li>
+              <li><router-link :to="{ path: '/cases', query: { tab: '家事案例' } }">家事案例</router-link></li>
+              <li><router-link :to="{ path: '/cases', query: { tab: '詐欺案例' } }">詐欺案例</router-link></li>
             </ul>
           </div>
           <div class="footer-nav-col">
